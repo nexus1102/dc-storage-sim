@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "validation_date": "2026-11-10",
+  "repository": "https://github.com/nexus1102/dc-storage-sim",
+  "visibility_intended": "private",
+  "source_commit_before_handoff_evidence": "aa0c9ac3b72b318a746cd697e66669a6e534b98d",
+  "validation_scope": "Selected current files copied into an initially empty directory; no historical runs, outputs, archived versions or Azure traces. Uses the existing Python environment; not a fresh dependency install or a second-computer test.",
+  "environment": {
+    "python": "3.12.8",
+    "os": "Windows",
+    "packages": {
+      "python": "3.12.8",
+      "platform": "Windows-10-10.0.19045-SP0",
+      "packages": {
+        "pypsa": "1.0.4",
+        "linopy": "0.5.7",
+        "highspy": "1.11.0",
+        "pandas": "2.3.3",
+        "numpy": "2.3.4",
+        "xarray": "2025.10.1",
+        "matplotlib": "3.10.7",
+        "scipy": "1.16.3",
+        "pytest": "8.4.2"
+      }
+    }
+  },
+  "source_files_before_this_evidence": 85,
+  "source_bytes_before_this_evidence": 1493558,
+  "secret_pattern_scan": "PASS",
+  "pytest": {
+    "tests": 37,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "v3_four_stage_smoke": [
+    {
+      "stage": 0,
+      "scenario_count": 2,
+      "checks": 235,
+      "all_passed": true,
+      "execution": {
+        "elapsed_seconds": 232.40873939999437,
+        "within_10min": true
+      },
+      "seal_sha256": "b0945c71dfc45d91a94d8d94120615a11b0004ab7860f6b8334f5e6b88730063"
+    },
+    {
+      "stage": 1,
+      "scenario_count": 2,
+      "checks": 375,
+      "all_passed": true,
+      "execution": {
+        "elapsed_seconds": 19.017070899993996,
+        "within_10min": true
+      },
+      "seal_sha256": "6ad2fd2fc47473aae596e8d385ddf8bc19e0e50203aaea7e675043fcd88b4d86"
+    },
+    {
+      "stage": 2,
+      "scenario_count": 2,
+      "checks": 2,
+      "all_passed": true,
+      "execution": {
+        "elapsed_seconds": 527.9131108000001,
+        "within_10min": true
+      },
+      "seal_sha256": "03dd9a01c78c9d663e95775c743c5f443c1a87f914abd18205c028cd4953bf79"
+    },
+    {
+      "stage": 3,
+      "scenario_count": 2,
+      "checks": 470,
+      "all_passed": true,
+      "execution": {
+        "elapsed_seconds": 92.83002470000065,
+        "within_10min": true
+      },
+      "seal_sha256": "d3655af8baa545c23264d7e5c042a8dfbdd7fd45f7167d0fdc63aecc1b367c2e"
+    }
+  ],
+  "v3_regression": {
+    "passed": true,
+    "reference": "baseline/v3_reference.csv",
+    "rows": 5,
+    "columns": 20,
+    "rtol": 1e-06
+  },
+  "research_module_smoke": {
+    "slots": 8,
+    "architectures": [
+      "N",
+      "N+1",
+      "2N+1",
+      "2(N+1)"
+    ],
+    "reference": "standby",
+    "independent_checks": 5155,
+    "all_passed": true,
+    "capability_rows": 16,
+    "seal_sha256": "7afc48e67c37125a7249b0f95d718b4a60466950fac5c777254848d09e73c615"
+  },
+  "pending_scientific_work": [
+    "Degradation calibration and half/full throughput unit reconciliation",
+    "AGC activation efficiency losses and SOC/purchase energy closure",
+    "Fair coupled/decoupled comparison retaining cooling service",
+    "Field topology and empirical GPU/LLM service calibration",
+    "Official JCR/CAS partition evidence"
+  ],
+  "limits": [
+    "Two-scenario smoke and eight-slot research demo are software checks, not full statistical research acceptance.",
+    "No full historical run outputs are included.",
+    "No model code was changed for this handoff."
+  ],
+  "result": "PASS within stated software-validation scope"
+}
