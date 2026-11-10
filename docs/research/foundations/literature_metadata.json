@@ -1,0 +1,170 @@
+[
+  {
+    "doi": "10.1109/TSG.2013.2237929",
+    "openalex_id": "https://openalex.org/W2021689699",
+    "title": "Energy and Performance Management of Green Data Centers: A Profit Maximization Approach",
+    "year": 2013,
+    "citations": 264,
+    "venue": "IEEE Transactions on Smart Grid",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1109/TSG.2013.2237929",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": true,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "M. Ghamkhari; H. Mohsenian-Rad",
+    "primary_doi_url": "https://doi.org/10.1109/TSG.2013.2237929",
+    "crossref_url": "https://api.crossref.org/works/10.1109/TSG.2013.2237929",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2013,
+        6
+      ]
+    ]
+  },
+  {
+    "doi": "10.1109/TPWRS.2014.2328865",
+    "openalex_id": "https://openalex.org/W2327685928",
+    "title": "Aggregate Flexibility of Thermostatically Controlled Loads",
+    "year": 2014,
+    "citations": 744,
+    "venue": "IEEE Transactions on Power Systems",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1109/TPWRS.2014.2328865",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": true,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "He Hao; Borhan M. Sanandaji; Kameshwar Poolla; Tyrone L. Vincent",
+    "primary_doi_url": "https://doi.org/10.1109/TPWRS.2014.2328865",
+    "crossref_url": "https://api.crossref.org/works/10.1109/TPWRS.2014.2328865",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2015,
+        1
+      ]
+    ]
+  },
+  {
+    "doi": "10.1109/TPWRS.2017.2674699",
+    "openalex_id": "https://openalex.org/W2512109574",
+    "title": "A Geometric Approach to Aggregate Flexibility Modeling of Thermostatically Controlled Loads",
+    "year": 2017,
+    "citations": 372,
+    "venue": "IEEE Transactions on Power Systems",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1109/TPWRS.2017.2674699",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": true,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "Lin Zhao; Wei Zhang; He Hao; Karanjit Kalsi",
+    "primary_doi_url": "https://doi.org/10.1109/TPWRS.2017.2674699",
+    "crossref_url": "https://api.crossref.org/works/10.1109/TPWRS.2017.2674699",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2017,
+        11
+      ]
+    ]
+  },
+  {
+    "doi": "10.1109/TSG.2015.2501808",
+    "openalex_id": "https://openalex.org/W2243705582",
+    "title": "Proactive Demand Response for Data Centers: A Win-Win Solution",
+    "year": 2015,
+    "citations": 139,
+    "venue": "IEEE Transactions on Smart Grid",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1109/TSG.2015.2501808",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": true,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "Hao Wang; Jianwei Huang; Xiaojun Lin; Hamed Mohsenian-Rad",
+    "primary_doi_url": "https://doi.org/10.1109/TSG.2015.2501808",
+    "crossref_url": "https://api.crossref.org/works/10.1109/TSG.2015.2501808",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2016,
+        5
+      ]
+    ]
+  },
+  {
+    "doi": "10.1016/j.apenergy.2018.07.056",
+    "openalex_id": "https://openalex.org/W2885614348",
+    "title": "Data centers as a source of dynamic flexibility in smart girds",
+    "year": 2018,
+    "citations": 67,
+    "venue": "Applied Energy",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1016/j.apenergy.2018.07.056",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": false,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "Ilari Alaperä; Samuli Honkapuro; Janne Paananen",
+    "primary_doi_url": "https://doi.org/10.1016/j.apenergy.2018.07.056",
+    "crossref_url": "https://api.crossref.org/works/10.1016/j.apenergy.2018.07.056",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2018,
+        11
+      ]
+    ]
+  },
+  {
+    "doi": "10.1016/j.peva.2013.08.014",
+    "openalex_id": "https://openalex.org/W2052671641",
+    "title": "Data center demand response: Avoiding the coincident peak via workload shifting and local generation",
+    "year": 2013,
+    "citations": 225,
+    "venue": "Performance Evaluation",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1016/j.peva.2013.08.014",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": false,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "Zhenhua Liu; Adam Wierman; Yuan Chen; Benjamin Razon; Niangjun Chen",
+    "primary_doi_url": "https://doi.org/10.1016/j.peva.2013.08.014",
+    "crossref_url": "https://api.crossref.org/works/10.1016/j.peva.2013.08.014",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2013,
+        10
+      ]
+    ]
+  },
+  {
+    "doi": "10.1109/TIA.2019.2933791",
+    "openalex_id": "https://openalex.org/W4252892782",
+    "title": "UPS Node-Based Workload Management for Data Centers Considering Flexible Service Requirements",
+    "year": 2019,
+    "citations": 37,
+    "venue": "IEEE Transactions on Industry Applications",
+    "retrieval_url": "https://api.openalex.org/works/https://doi.org/10.1109/TIA.2019.2933791",
+    "jcr_quartile": "unverified",
+    "cas_partition": "unverified",
+    "checked_date": "2026-11-10",
+    "abstract_available": true,
+    "evidence_level": "bibliographic metadata; full model transfer requires primary-text verification",
+    "authors": "Fang Cao; Yajing Wang; Feng Zhu; Yujie Cao; Zhaohao Ding",
+    "primary_doi_url": "https://doi.org/10.1109/TIA.2019.2933791",
+    "crossref_url": "https://api.crossref.org/works/10.1109/TIA.2019.2933791",
+    "crossref_type": "journal-article",
+    "issue_date": [
+      [
+        2019,
+        11
+      ]
+    ]
+  }
+]

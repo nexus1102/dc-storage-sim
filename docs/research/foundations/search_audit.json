@@ -1,0 +1,15 @@
+{
+  "requested_priority": "JCR Q1 first; also record CAS partition",
+  "date": "2026-11-10",
+  "web_search_service": "transport closed on repeated calls",
+  "metadata": "OpenAlex and Crossref APIs accessible",
+  "jcr": "No official JCR year/category/quartile evidence obtained; UNVERIFIED for all candidates",
+  "cas": "No official CAS partition year/category evidence obtained; UNVERIFIED",
+  "scimago": "403; SJR would not substitute for JCR even if accessible",
+  "engineering_sources": "Schneider candidate URL returned 404; Uptime candidate redirected to unrelated host and was rejected",
+  "primary_text_read": [
+    "https://arxiv.org/html/1511.00575",
+    "https://arxiv.org/abs/1608.04422"
+  ],
+  "policy": "No claim of confirmed Q1, CAS Zone 1, or Tier certification"
+}

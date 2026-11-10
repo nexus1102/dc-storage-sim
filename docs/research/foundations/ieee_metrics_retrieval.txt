@@ -1,0 +1,6 @@
+{
+  "url": "https://ieee-pes.org/publications/transactions-on-smart-grid/",
+  "status": 200,
+  "characters": 315012,
+  "accepted_source": true
+}
