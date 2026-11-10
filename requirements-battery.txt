@@ -1,0 +1,2 @@
+# Optional: rebuild the frozen PyBaMM calibration, outside core regression.
+pybamm>=24.0

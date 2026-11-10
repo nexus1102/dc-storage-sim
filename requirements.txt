@@ -1,0 +1,10 @@
+numpy>=1.26
+pandas>=2.0
+scipy>=1.11
+matplotlib>=3.8
+xarray>=2023.1
+pypsa>=1.0
+pybamm>=24.0
+highspy>=1.7
+linopy>=0.5.7
+pytest>=8.4

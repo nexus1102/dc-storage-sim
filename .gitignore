@@ -1,0 +1,34 @@
+__pycache__/
+*.pyc
+build/
+external/
+classpath.txt
+results/*.npy
+runs/
+.venv/
+.pytest_cache/
+replay/
+results/*
+!results/README.md
+archive/*
+!archive/README.md
+*.log
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local historical material excluded from the clean GitHub handoff
+data/raw/AzureLLMInferenceTrace_*.csv
+docs/maintenance/*.csv
+docs/maintenance/文件分类与清理总览.md
+docs/research/foundations/validation_report.md
+docs/项目架构与验收报告_v3.md
+docs/路线图落实清单_v3.md
+baseline/v3_regression_evidence.json
+evidence/*
+!evidence/README.md
+!evidence/github_handoff_validation.json
