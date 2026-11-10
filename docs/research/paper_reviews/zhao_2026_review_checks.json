@@ -1,0 +1,138 @@
+{
+  "review_date": "2026-11-10",
+  "scope": "Independent arithmetic checks for the paper review, not simulator acceptance or numerical paper replication",
+  "source": {
+    "path": "C:\\Users\\yuan\\Desktop\\考虑实体-虚拟储能耦合的含储能数据中心园区调频交易投标调度_肇嘉毅.pdf",
+    "sha256": "a52b80e5130c4c4b803f98966df436de6ac71d53047d5cb9ec803912d99496b3",
+    "pages": 11,
+    "doi": "10.16183/j.cnki.jsjtu.2024.358",
+    "publication_year": 2026
+  },
+  "inspected_code_commit": "90c9cacd52b50fcca812efe2ce97a4a63c4aeb26",
+  "cases": [
+    {
+      "case": 1,
+      "wear": 6676.8,
+      "purchase": 43218.0,
+      "regulation": 22650.0,
+      "printed_total": 27245.0,
+      "recomputed_total": 27244.800000000003
+    },
+    {
+      "case": 2,
+      "wear": 1514.5,
+      "purchase": 27979.0,
+      "regulation": 0.0,
+      "printed_total": 29494.0,
+      "recomputed_total": 29493.5
+    },
+    {
+      "case": 3,
+      "wear": 6441.0,
+      "purchase": 34446.0,
+      "regulation": 16628.0,
+      "printed_total": 24259.0,
+      "recomputed_total": 24259.0
+    }
+  ],
+  "joint_vs_decoupled_regulation": {
+    "cost_saved_yuan": 2985.800000000003,
+    "cost_reduction_percent": 10.959155508574122,
+    "regulation_revenue_change_yuan": -6022.0
+  },
+  "joint_vs_coupled_no_regulation": {
+    "cost_saved_yuan": 5234.5,
+    "cost_reduction_percent": 17.747978368115007
+  },
+  "zero_net_ac_agc_example": {
+    "charge_mwh": 1.0,
+    "discharge_mwh": 1.0,
+    "one_way_efficiency": 0.95,
+    "soc_loss_mwh": 0.10263157894736841,
+    "loss_at_unit_efficiency": 0.0
+  },
+  "printed_equation_19_dimensional_check": {
+    "dt_h": 0.25,
+    "correct_charging_power": "delta_E/(eta*dt)",
+    "questioned_printed_term": "delta_E*dt/eta",
+    "correct_to_printed_numerical_ratio": 16.0,
+    "qualification": "Dimensional inconsistency in supplied PDF; does not establish implementation error in author code"
+  },
+  "reserve_interval_check": {
+    "ride_h": 0.75,
+    "dt_h": 0.25,
+    "intervals": 3,
+    "qualification": "Interval convention check; not a claim that author code counts four intervals"
+  },
+  "transfer_matrix_fixture": {
+    "B": [
+      [
+        0.5,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.75,
+        0.0
+      ],
+      [
+        0.25,
+        0.25,
+        1.0
+      ]
+    ],
+    "A_equals_B_minus_I": [
+      [
+        -0.5,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        -0.25,
+        0.0
+      ],
+      [
+        0.25,
+        0.25,
+        0.0
+      ]
+    ],
+    "arrivals": [
+      10.0,
+      20.0,
+      30.0
+    ],
+    "direct_equals_incremental": true,
+    "work_conserved": true
+  },
+  "degradation_unit_fixture": {
+    "installed_mwh": 1.0,
+    "cycle_depth": 0.3,
+    "rate_yuan_per_full_throughput_mwh": 100.0,
+    "full_throughput_mwh": 0.6,
+    "half_throughput_mwh": 0.3,
+    "expected_cost_yuan": 60.0,
+    "mixed_convention_cost_yuan": 30.0,
+    "qualification": "Conditional on calibrated rate per full bidirectional throughput; fix depth coordinate and rate consistently"
+  },
+  "rounded_scenario_probabilities": {
+    "printed": [
+      0.233,
+      0.2417,
+      0.175,
+      0.35
+    ],
+    "sum": 0.9997,
+    "normalized": [
+      0.2330699209762929,
+      0.24177253175952784,
+      0.1750525157547264,
+      0.3501050315094528
+    ]
+  },
+  "result": "PASS",
+  "simulator_experiments_run": false,
+  "model_code_modified": false
+}
