@@ -102,12 +102,17 @@ def test_training_overhead_and_hard_vs_soft_deadline():
     assert r['service_cost']>100000 and r['service_trace'].unmet.max()>1.
 
 def test_capability_power_duration_and_fixed_state(coupled):
+    from research_verify import verify_capability
     load,cfg,jobs,a,ref=coupled
     short=envelope(ref,load,tariff(8),a,2,1,cfg,contracts=jobs)
     long=envelope(ref,load,tariff(8),a,2,2,cfg,contracts=jobs)
     assert short['power_mw']+1e-5>=long['power_mw']
     assert short['power_lo']<=short['power_mw']<=short['power_hi']
     witness=short['witness']
+    assert verify_capability(ref,short,2,1)['pass'].all()
+    corrupt=dict(short,witness=dict(witness,trace=witness['trace'].copy()))
+    corrupt['witness']['trace'].loc[2,'grid']+=1.
+    assert not verify_capability(ref,corrupt,2,1)['pass'].all()
     assert verify_research(witness['trace'],witness,witness['physical_trace'],witness['service_trace'])['pass'].all()
     # The capacity witness cannot rewrite executed useful-work progress.
     for name in [j.name for j in jobs.jobs]:

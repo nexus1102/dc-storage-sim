@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-11",
+  "standards_status": "BLOCKED",
+  "certification": false,
+  "scope": "partial evidence collection only; no functionality expansion",
+  "sources": [
+    {
+      "url": "https://nic.hceb.edu.cn/__local/7/8F/52/1715BEAE5863D7386193AA60803_D22D1172_175174.pdf?e=.pdf",
+      "local_ignored_path": "external/empirical_20261111/standards/gb50174_institutional.pdf",
+      "size": 1528180,
+      "sha256": "94404eb6ea43009cbacbd5c140982eca194de480d8b33ccba0999344c2930370",
+      "source_kind": "institutional hosted copy, not official current-status record",
+      "git_included": false
+    },
+    {
+      "url": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2024/art_17339_765632.html",
+      "local_ignored_path": "external/empirical_20261111/standards/gb55024_notice.html",
+      "size": 14998,
+      "sha256": "e75091ecd6a3fc9198fe7321a1522156024de54e4f4c15f34b31018e1ae3461a",
+      "source_kind": "official publication notice; applicability pending",
+      "git_included": false
+    },
+    {
+      "url": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2026/art_b12f3aafa9684705b849d2d1048b8c7e.html",
+      "source_kind": "official consultation notice",
+      "retrieval": "web page inspected; direct requests failed; no local hash",
+      "finding": "comment deadline 2026-02-11 is not proven repeal of GB50174-2017; final replacement not verified"
+    },
+    {
+      "url": "https://wap.miit.gov.cn/cms_files/filemanager/1226211233/attach/20253/2ec05fed18884ab390f007678c567ffd.pdf",
+      "source_kind": "official revision-plan consultation",
+      "retrieval": "search-index excerpt only; direct PDF HTTP403; full clauses not inspected",
+      "finding": "YD5193-2014 and YD5194-2014 named as revision targets; candidate identity only"
+    },
+    {
+      "url": "https://www.hunan.gov.cn/zqt/zcsd/202512/33884148/files/d9f0423ff05a40278755bfdbde069224.pdf",
+      "source_kind": "government mirror of revision plan",
+      "retrieval": "search-index excerpt; direct TLS connection failed",
+      "finding": "project 2025-2064T-YD is a plan, not an adopted replacement standard"
+    }
+  ],
+  "gb50174_partial_inspections": [
+    {
+      "locator": "8.1.7; PDF29, printed19",
+      "object": "UPS basic power capacity and IT calculated load, kW/kVA; redundant units excluded from basic capacity",
+      "mapping_status": "nameplate, equipment mapping and load calculation required; not SOC/MWh rule"
+    },
+    {
+      "locator": "8.1.8; PDF29, printed19",
+      "object": "IT and UPS-backed air-conditioning equipment grouping",
+      "mapping_status": "aggregate IT+cooling cannot establish separate UPS group compliance; target-site single-line diagram missing"
+    },
+    {
+      "locator": "appendix technical requirements table; PDF44 header / PDF47 rows, printed34/37",
+      "object": "conditional backup-duration rows and facility grade columns",
+      "mapping_status": "partial mirror review only; final publisher text and project applicability not yet approved; 45min simulation assumption not universal requirement"
+    },
+    {
+      "locator": "8.4.4; PDF32, printed22",
+      "object": "equipotential bonding and grounding",
+      "mapping_status": "external engineering evidence required; not storage reserve criterion"
+    }
+  ],
+  "visual_inspection": {
+    "rendered_and_viewed_pdf_pages": [
+      29,
+      30,
+      43,
+      44,
+      47
+    ],
+    "note": "page43 viewed but not appendix header; correct header visually verified on page44; page32 text inspected only"
+  },
+  "limitations": [
+    "institutional copy not authenticated against publisher final text",
+    "all adopted versions and applicability reviews remain pending",
+    "no device switching or grounding/grid-interface certification acquired",
+    "full 11-standard review remains incomplete",
+    "retrieval failures not treated as full-text evidence"
+  ]
+}

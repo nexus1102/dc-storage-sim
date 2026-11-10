@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-11",
+  "scope": "existing representative-day synthetic-contract mechanisms plus external priors; no new experiments",
+  "simulator_source_unchanged": true,
+  "default_adoption": false,
+  "standard_compliance": "BLOCKED",
+  "sources": [
+    {
+      "path": "runs/thesis_20261111_005814_330365/factorial.csv",
+      "sha256": "80a554348b3b68e5cea02e27b6d708fc0ed3b806e336e33500671c45b375eb5f"
+    },
+    {
+      "path": "runs/matched_20261111_013313_597650/matched_capability.csv",
+      "sha256": "850ae439f1b2ed5659f706245b9f4cbf3af8d043b6bbd13cfd94282831a5cbe8"
+    },
+    {
+      "path": "runs/thesis_20261111_005814_330365/design_faults.csv",
+      "sha256": "57e87abee764bb42d3db7be20f463d73fb3e512160fa07d71f3759d32a16f734"
+    }
+  ],
+  "seals": {
+    "thesis_20261111_005814_330365": "e1640be2d11c9becc6185a3d3fe00086cec3f1583d968101d26bf90c97cb222e",
+    "matched_20261111_013313_597650": "5016f09e05744f4d083d713c5d2af55887ed78b05774369dea9268ccf638af07"
+  },
+  "factorial": [
+    {
+      "architecture": "N",
+      "interaction_yuan": 58.990029671258526,
+      "solver_lower_yuan": 58.98999914024898,
+      "solver_upper_yuan": 58.990060202238965,
+      "total_cost_reduction_yuan": 563.9391230601614,
+      "total_cost_reduction_percent": 0.7362638558301549
+    },
+    {
+      "architecture": "N+1",
+      "interaction_yuan": -40.36862841772381,
+      "solver_lower_yuan": -40.368658031817176,
+      "solver_upper_yuan": -40.32434164971346,
+      "total_cost_reduction_yuan": 1073.3963066317374,
+      "total_cost_reduction_percent": 1.4392194673041092
+    },
+    {
+      "architecture": "2N+1",
+      "interaction_yuan": 671.7769668914261,
+      "solver_lower_yuan": 671.7769383182313,
+      "solver_upper_yuan": 671.7769954649411,
+      "total_cost_reduction_yuan": 4330.688093413657,
+      "total_cost_reduction_percent": 5.89765085873124
+    },
+    {
+      "architecture": "2(N+1)",
+      "interaction_yuan": 717.5259639097931,
+      "solver_lower_yuan": 717.4844139559718,
+      "solver_upper_yuan": 717.5259923702833,
+      "total_cost_reduction_yuan": 4852.096939207622,
+      "total_cost_reduction_percent": 6.61074263035093
+    }
+  ],
+  "matched_capacity": [
+    {
+      "arch": "N",
+      "duration_h": 1.0,
+      "power_mw_battery": 0.0,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 7.21999
+    },
+    {
+      "arch": "N",
+      "duration_h": 2.0,
+      "power_mw_battery": 0.0,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 7.21999
+    },
+    {
+      "arch": "N+1",
+      "duration_h": 1.0,
+      "power_mw_battery": 0.5414899999986474,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 6.678500000001352
+    },
+    {
+      "arch": "N+1",
+      "duration_h": 2.0,
+      "power_mw_battery": 0.2707399999993246,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 6.949250000000675
+    },
+    {
+      "arch": "2N+1",
+      "duration_h": 1.0,
+      "power_mw_battery": 2.9782399999925544,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 4.241750000007446
+    },
+    {
+      "arch": "2N+1",
+      "duration_h": 2.0,
+      "power_mw_battery": 1.4891149999962776,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 5.7308750000037225
+    },
+    {
+      "arch": "2(N+1)",
+      "duration_h": 1.0,
+      "power_mw_battery": 3.445899090900475,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 3.774090909099525
+    },
+    {
+      "arch": "2(N+1)",
+      "duration_h": 2.0,
+      "power_mw_battery": 1.7229445454502392,
+      "power_mw_joint": 7.21999,
+      "increment_mw": 5.497045454549761
+    }
+  ],
+  "scientific_limits": [
+    "single historical price representative day",
+    "different installed assets across architectures",
+    "joint capacity censored by reference import ceiling",
+    "synthetic service contracts and uncalibrated target site",
+    "solver bounds are not statistical confidence intervals",
+    "no engineering/Tier certification"
+  ]
+}

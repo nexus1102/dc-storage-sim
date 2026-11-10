@@ -17,16 +17,19 @@ def unit_cost(depth, path=None):
     x,y = calibration(path)
     return float(np.interp(depth,x,y))
 
-def add_cost(m, throughput, energy, prefix, mode='sos2', path=None):
+def add_cost(m, throughput, energy, prefix, mode='sos2', path=None, accounting_version=3):
+    # Input is HALF throughput in both versions: retain depth = H/E.
+    # Calibration rate is per FULL throughput, so v4 costs are 2*r*H.
+    factor=2. if accounting_version==4 else 1.
     if mode == 'legacy':
-        return 15. * throughput
+        return factor * 15. * throughput
     if mode == 'shallow':
-        return unit_cost(.3,path) * throughput
+        return factor * unit_cost(.3,path) * throughput
     if mode != 'sos2':
         raise ValueError(mode)
     depths,rates = calibration(path)
     x = np.r_[0.,depths,12.]
-    y = x * np.r_[rates[0],rates,rates[-1]]
+    y = factor * x * np.r_[rates[0],rates,rates[-1]]
     dim = prefix + '_knot'
     ix = pd.Index(range(len(x)),name=dim)
     lam = m.add_variables(lower=0,coords=[ix],name=prefix+'_lambda')

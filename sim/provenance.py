@@ -7,8 +7,8 @@ TARIFF_URL='https://www.jintan.gov.cn/html/czjt/2025/JFKEQAOD_0624/281022.html'
 POLICY_URL='https://fzggw.jiangsu.gov.cn/art/2025/4/30/art_284_11557001.html'
 MARKET_URL='https://jsb.nea.gov.cn/dtyw/jgdt/202605/t20260508_300757.html'
 
-def table():
-    c=Config(); rows=[]
+def table(cfg=None):
+    c=cfg or Config(); rows=[]
     units={'dt':'h','ride_h':'h','reserve_h':'h','reg_duration':'h','grid_max':'MW','ac_max':'MW',
            'demand_rate':'CNY/MW/day','reg_capacity_price':'CNY/MW/h','reg_mileage_price':'CNY/MW-mileage',
            'thermal_ua':'MW/K','thermal_c':'MWh/K','thermal_range':'K','thermal_tmax':'degC',
@@ -43,6 +43,7 @@ def table():
         if f.name=='replacement_soh': low,high=.7,.9
         if f.name=='dt': kind='配置'; low=high=value; boundary='来自输入的15分钟采样，不当作物理不确定性'
         if f.name=='seed': kind='配置'; low=high=value; boundary='可复现随机种子'
+        if f.name=='accounting_version': kind='配置'; low=high=value; boundary='3为历史复核，4为修正计费与激活能量闭合；不是连续敏感性参数'
         if f.name=='years': low,high=10,20
         if f.name=='demand_rate':
             kind='政策'; source=TARIFF_URL; boundary='2025-06两部制1–10(20)kV 51.2元/kW/月，按30天摊销'

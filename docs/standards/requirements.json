@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "scope": "all 11 user requirements; model support is not standard compliance",
+  "items": [
+    {
+      "id": "STD-01",
+      "requested": "ISO/IEC TS 22237-31:2023",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://www.iso.org/standard/88711.html"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_acceptance.py::test_simultaneous_reliability_limits_not_double_counted",
+        "tests/test_outage_policy.py"
+      ]
+    },
+    {
+      "id": "STD-02",
+      "requested": "IEEE 446",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://standards.ieee.org/ieee/446/669/"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_outage_policy.py::test_three_intervals_and_seconds_transfer_not_rounded"
+      ]
+    },
+    {
+      "id": "STD-03",
+      "requested": "IEEE 1184",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://standards.ieee.org/ieee/1184/6969/"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_accounting_revision.py",
+        "tests/test_outage_policy.py"
+      ]
+    },
+    {
+      "id": "STD-04",
+      "requested": "IEEE 1547-2018",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://standards.ieee.org/ieee/1547/5915/",
+        "https://sagroups.ieee.org/scc21/ieee-1547-series/"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_accounting_revision.py::test_unit_agc_closure_and_biased_scenario"
+      ]
+    },
+    {
+      "id": "STD-05",
+      "requested": "ASHRAE 90.4",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://www.ashrae.org/technical-resources/standards-and-guidelines/titles-purposes-and-scopes",
+        "https://www.ashrae.org/file%20library/about/government%20affairs/advocacy%20toolkit/virtual%20packet/standard-90.4-2022-fact-sheet.pdf"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_standards_gate.py::test_modeled_energy_ratio_does_not_claim_facility_pue"
+      ]
+    },
+    {
+      "id": "STD-06",
+      "requested": "Uptime Tier I–IV",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://uptimeinstitute.com/myths",
+        "https://uptimeinstitute.com/tier-certification"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_research_foundations.py",
+        "tests/test_outage_policy.py"
+      ]
+    },
+    {
+      "id": "STD-07",
+      "requested": "GB 50174-2017",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://tjca.miit.gov.cn/zwgk/txjsjd/art/2025/art_03c2c98aa5e846949d7089b34c39c6f6.html",
+        "https://nic.hceb.edu.cn/__local/7/8F/52/1715BEAE5863D7386193AA60803_D22D1172_175174.pdf?e=.pdf",
+        "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2026/art_b12f3aafa9684705b849d2d1048b8c7e.html"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_outage_policy.py"
+      ],
+      "candidate_version": "GB 50174-2017; adoption/current-status review pending",
+      "partial_inspections": [
+        {
+          "locator": "8.1.7; PDF29, printed19",
+          "object": "UPS basic power capacity and IT calculated load, kW/kVA; redundant units excluded from basic capacity",
+          "mapping_status": "nameplate, equipment mapping and load calculation required; not SOC/MWh rule"
+        },
+        {
+          "locator": "8.1.8; PDF29, printed19",
+          "object": "IT and UPS-backed air-conditioning equipment grouping",
+          "mapping_status": "aggregate IT+cooling cannot establish separate UPS group compliance; target-site single-line diagram missing"
+        },
+        {
+          "locator": "appendix technical requirements table; PDF44 header / PDF47 rows, printed34/37",
+          "object": "conditional backup-duration rows and facility grade columns",
+          "mapping_status": "partial mirror review only; final publisher text and project applicability not yet approved; 45min simulation assumption not universal requirement"
+        },
+        {
+          "locator": "8.4.4; PDF32, printed22",
+          "object": "equipotential bonding and grounding",
+          "mapping_status": "external engineering evidence required; not storage reserve criterion"
+        }
+      ],
+      "partial_source_record": {
+        "path": "docs/standards/source_evidence_20261111.json",
+        "sha256": "eb867e69c4adaa74cbba6d9b573339b028c696c89000f41ac9a0c332681f369f",
+        "qualifies_as_full_clause_review": false
+      }
+    },
+    {
+      "id": "STD-08",
+      "requested": "YD 5193-2010",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://wap.miit.gov.cn/cms_files/filemanager/1226211233/attach/20253/2ec05fed18884ab390f007678c567ffd.pdf",
+        "https://www.hunan.gov.cn/zqt/zcsd/202512/33884148/files/d9f0423ff05a40278755bfdbde069224.pdf"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [],
+      "candidate_version": "YD 5193-2014; candidate identity from revision plan, not yet adopted",
+      "catalog_finding": "Requested 2010 retained for traceability. Revision plan names 2014, but full text/current-status/applicability remain unverified."
+    },
+    {
+      "id": "STD-09",
+      "requested": "GB/T 36280",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://openstd.samr.gov.cn/bzgk/std/std_list?p.p1=0&p.p2=GB%2FT+36280&p.p90=circulation_date&p.p91=desc"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_accounting_revision.py::test_single_cycle_recovers_calibrated_asset_loss"
+      ]
+    },
+    {
+      "id": "STD-10",
+      "requested": "T/CAEE团标：AI数据中心用储能系统技术规范",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://www.ttbz.org.cn/upload/file/20251229/6390261866852790767287078.pdf"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_accounting_revision.py"
+      ]
+    },
+    {
+      "id": "STD-11",
+      "requested": "GB/T 2887-2011",
+      "adopted_version": "",
+      "source_checked_date": "2026-11-11",
+      "catalog_sources": [
+        "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=7DC85FD143801F924ADAE3492C3FB9DC"
+      ],
+      "applicability": "pending",
+      "applicability_reason": "",
+      "clause_refs": [],
+      "reviewer": "",
+      "review_status": "pending",
+      "external_required": true,
+      "evidence": [],
+      "model_support": [
+        "tests/test_research_foundations.py::test_coupled_component_and_sla_audit"
+      ]
+    }
+  ]
+}

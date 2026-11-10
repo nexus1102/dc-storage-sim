@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-11",
+  "scope": "external measurement calibration, partial standards collection, paper analysis only",
+  "base_commit": "b32f6d4",
+  "core_source_sha256_matches_previous_delivery": true,
+  "frozen_inputs_and_baseline_git_diff_empty": true,
+  "default_parameter_adoption": false,
+  "target_site_validation": false,
+  "engineering_certification": false,
+  "full_pytest": {
+    "tests": 63,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "pytest_seconds": 127.689,
+  "pytest_junit_sha256": "b311248d2cd8dc2b0f42b3078f93818ade33865f0b13b456d5951e3e98c4e583",
+  "standards_status": "BLOCKED",
+  "standards_count": 11,
+  "standards_gate_exit_code": 2,
+  "sealed_runs_rechecked": [
+    {
+      "run": "runs\\thesis_20261111_005814_330365",
+      "seal_sha256": "e1640be2d11c9becc6185a3d3fe00086cec3f1583d968101d26bf90c97cb222e",
+      "existing_trajectory_checks": 33139
+    },
+    {
+      "run": "runs\\matched_20261111_013313_597650",
+      "seal_sha256": "5016f09e05744f4d083d713c5d2af55887ed78b05774369dea9268ccf638af07",
+      "existing_trajectory_checks": 5813
+    }
+  ],
+  "calibration": {
+    "lfp_cells": 2,
+    "cell_cycles": 4182,
+    "azure_2024_requests": 16803695,
+    "azure_2024_days": 7,
+    "mlperf_llm_power_records": 8,
+    "curated_csv_bytes": 1489846
+  },
+  "git": {
+    "identity": "yuandingshan <yuandingshan1102@stu.xjtu.edu.cn>",
+    "work_package_branches": [
+      "codex/empirical-calibration-evidence",
+      "codex/standards-evidence",
+      "codex/paper-analysis"
+    ],
+    "commit_1": "fc5268e",
+    "commit_2": "71bdb57",
+    "remote_push_performed": false
+  },
+  "classification": {
+    "required_runtime_inputs": "data/inputs and data/raw/openb remain unchanged",
+    "external_measurement_derivatives": "data/empirical, optional offline research evidence",
+    "raw_public_measurements_and_normative_copies": "external/empirical_20261111, ignored and not required to run simulator",
+    "generated_figures": "results/paper_analysis, ignored"
+  },
+  "limitations": [
+    "no target site electrical or real service contract measurements supplied this turn",
+    "GB50174 institutional copy partially inspected, not authenticated final publisher copy",
+    "YD2014 candidate from revision plan; full text and current status remain pending",
+    "JCR annual category and CAS partition evidence incomplete",
+    "no migration of external cell or benchmark parameters into default simulation"
+  ]
+}

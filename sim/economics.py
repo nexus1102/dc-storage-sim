@@ -28,7 +28,7 @@ def lifetime(load,price,modules,base_cost,cfg=Config(),coupled=True,**options):
         old=cumulative; cumulative+=discounted
         if payback is None and cumulative>=0 and discounted>0:
             payback=year-1+max(0.,-old)/discounted
-        fade=cfg.calendar_fade+cfg.cycle_fade*365*r['throughput']/(modules*.5)
+        fade=cfg.calendar_fade+cfg.cycle_fade*365*r['throughput']/((2 if cfg.accounting_version==4 else 1)*modules*.5)
         rows.append(dict(year=year,soh=soh,opex=opex,replacement=replacement,
                          benefit=benefit,discounted=discounted,cumulative_npv=cumulative,
                          discharge_mwh=365*cfg.dt*r['trace'].discharge.sum()))

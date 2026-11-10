@@ -1,0 +1,9 @@
+model,scenario,hardware,submission,nodes,watts,tokens_per_second,gross_joules_per_output_token,location
+llama2-70b-99,Offline,SR680a_V3_B200SXMx8_TRT,5.1-0061,1,10400.9988793,102909,0.10106986638,closed/Lenovo/results/SR680a_V3_B200SXMx8_TRT/llama2-70b-99/Offline
+llama2-70b-99,Server,SR680a_V3_B200SXMx8_TRT,5.1-0061,1,10442.2597403,99159.3,0.105307921095,closed/Lenovo/results/SR680a_V3_B200SXMx8_TRT/llama2-70b-99/Server
+llama2-70b-99.9,Offline,SR680a_V3_B200SXMx8_TRT,5.1-0061,1,10400.9988793,102909,0.10106986638,closed/Lenovo/results/SR680a_V3_B200SXMx8_TRT/llama2-70b-99.9/Offline
+llama2-70b-99.9,Server,SR680a_V3_B200SXMx8_TRT,5.1-0061,1,10434.7064555,99203.9,0.105184437865,closed/Lenovo/results/SR680a_V3_B200SXMx8_TRT/llama2-70b-99.9/Server
+llama3.1-405b,Offline,SR780a_V3_B200SXMx8_TRT,5.1-0062,1,9891.76439759,1637.11,6.04221121219,closed/Lenovo/results/SR780a_V3_B200SXMx8_TRT/llama3.1-405b/Offline
+llama3.1-405b,Server,SR780a_V3_B200SXMx8_TRT,5.1-0062,1,9566.18233831,1249.04,7.65882785044,closed/Lenovo/results/SR780a_V3_B200SXMx8_TRT/llama3.1-405b/Server
+llama3.1-8b,Offline,SR780a_V3_B200SXMx8_TRT,5.1-0062,1,9436.05296875,146960,0.0642083081706,closed/Lenovo/results/SR780a_V3_B200SXMx8_TRT/llama3.1-8b/Offline
+llama3.1-8b,Server,SR780a_V3_B200SXMx8_TRT,5.1-0062,1,9011.06666667,128689,0.070022042806,closed/Lenovo/results/SR780a_V3_B200SXMx8_TRT/llama3.1-8b/Server

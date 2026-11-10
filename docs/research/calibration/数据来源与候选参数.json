@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-11",
+  "default_parameter_adoption": false,
+  "target_site_data_received_this_turn": false,
+  "parameters": [
+    {
+      "quantity": "arrival count profiles and token lengths",
+      "source": "Azure 2024 complete code release",
+      "status": "externally observed; offline prior only",
+      "mapping": "Minute rates can inform scenarios; not power or service rate; no automatic default change"
+    },
+    {
+      "quantity": "battery DC energy and effective capacity loss",
+      "source": "HUST v2 two LFP/graphite cells",
+      "status": "fit with chronological and cross-protocol holdouts",
+      "mapping": "DC cell observation; not AC UPS efficiency or universal cycle/calendar law"
+    },
+    {
+      "quantity": "LLM power throughput and latency",
+      "source": "MLPerf Inference v5.1 pinned commit",
+      "status": "single deployment anchor, not fitted idle/marginal curve",
+      "mapping": "28.8883 gross active-system J/request; cannot separately identify idle intercept and marginal energy"
+    }
+  ],
+  "additional_candidates": [
+    {
+      "name": "NASA PCoE Battery Data Set",
+      "url": "https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/",
+      "status": "not downloaded",
+      "reason": "additional chemistry and target UPS transfer evidence needed"
+    },
+    {
+      "name": "Severson/MATR LFP cycle life",
+      "url": "https://data.matr.io/1/projects/5c48dd2bc625d700019f3204",
+      "author_repository": "https://github.com/rdbraatz/data-driven-prediction-of-battery-cycle-life-before-capacity-degradation",
+      "status": "candidate only; no data/model code downloaded",
+      "reason": "two chosen LFP cells already bound this work package; verify data and code licenses independently"
+    },
+    {
+      "name": "Battery Archive",
+      "url": "https://www.batteryarchive.org/faq.html",
+      "status": "catalog only; no email sent",
+      "reason": "bulk CSV access requires request"
+    }
+  ],
+  "chemistry_provenance_warning": {
+    "tool": "tools/battery_degradation.py",
+    "parameter_name": "OKane2022",
+    "official_snapshot": "https://raw.githubusercontent.com/pybamm-team/PyBaMM/v24.9.0/src/pybamm/input/parameters/lithium_ion/OKane2022.py",
+    "local_ignored_path": "external/empirical_20261111/OKane2022_source.py",
+    "sha256": "c2bd8287c8446501ec67abc282a24faaaa81b88e19fadeb90431c676a702f4cf",
+    "finding": "LG M50, NMC cathode; original frozen generator environment not fully recorded; no validated LFP provenance",
+    "action": "frozen numerical proxy retained; not relabelled as LFP empirical calibration"
+  },
+  "literature_ranking": {
+    "JCR": "priority Q1, annual/category evidence not acquired here",
+    "CAS": "annual edition not verified",
+    "citation_counts": "not verified; no high-citation label assigned"
+  }
+}

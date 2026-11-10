@@ -12,7 +12,7 @@ from runctx import RunContext,sha256
 from verify import regress
 
 def regress_three():
-    cfg=Config(); load=load_inputs(); price=tariff(len(load),cfg.dt)
+    cfg=Config(accounting_version=3); load=load_inputs(); price=tariff(len(load),cfg.dt)
     base=base_cost(load,price,cfg); hashes=[]; runs=[]
     for repeat in range(3):
         run=RunContext(ROOT,prefix='v3reg')
@@ -58,7 +58,7 @@ def report():
     anchor=pd.read_csv(stages[2]/'legacy_sizing_anchor.csv')
     regression=json.loads((ROOT/'baseline/v3_regression_evidence.json').read_text())
     body=['# v3 项目架构、开发与验收报告','',
-          '验收口径：软件实现与数值复核已覆盖路线图各工作包；实证/论文结论受以下明确边界约束。所有调频收益为研究情景，不代表具备当地市场准入或真实结算收益。','',
+          '历史V3软件验收口径，accounting_version=3；修正研究入口为sim/thesis_experiments.py。标准符合性另由sim/standards.py审核，当前BLOCKED；本报告不构成Tier或工程认证。调频收益为研究情景，不代表市场准入或结算收益。','',
           '## 架构','',
           '`config/provenance → dispatch（共享 linopy 核心）→ experiments 0–3 → CSV/JSON → independent_verify → runctx 封存`。规划层枚举有限整数候选的完整调度值函数，再用MILP选择；两阶段/DRO直接调用共享模型；MPC与迁移为独立研究脚本。历史v1/v2留作锚点。','',
           '## 实测验收','',
@@ -113,7 +113,7 @@ def report():
            '- 退化采用吞吐代理，未做雨流计数；套利以日等效深度插值总成本，调频单独按最近浅循环标定档计费；热参数未经建筑实测。',
            '- 规划最优性仅对声明的5–64模块有限整数候选集合成立；ε前沿另对五个标准架构重新求解全部调度约束。年度成本按代表日重复365次，不是全年天气/负荷统计。',
            '- MPC使用合成预测误差。日前1小时两阶段、日内15分钟滚动已实现；软备用及SOC/热终端缺口必须报告。没有生产实时系统测试，不作实时性承诺。',
-           '- 文献“肇嘉毅2026”的原文未随项目提供，不能据此完成逐式差异核对或保证论文可投/创新性。公式—代码追溯和可运行对照臂已提供。','',
+           '- 肇嘉毅2026的原文核读记录见docs/research/paper_reviews；原始数据不足，采用机制借鉴，不声称数值复现或已证明创新性。','',
            '## 基线哈希','',f"`{regression['sha256'][0]}`。详见 `baseline/v3_regression_evidence.json`；从封存source和inputs离线复算使用 `sim/reproduce.py`。"]
     body+=['','## 按样本外负荷区间检验结论翻转','',
            '按同一批样本外情景的负荷倍率分低（<0.95）、中（0.95–1.05）、高（>1.05）组；分组区间是探索性分析，未校正多重比较。详见 `results/summary/oos_conditions.csv`。',
@@ -137,6 +137,11 @@ def report():
     if any(r['passed']!=r['checks'] for r in rows): raise AssertionError('stage check failures')
 
 if __name__=='__main__':
-    ap=argparse.ArgumentParser(); ap.add_argument('--regress-three',action='store_true'); ap.add_argument('--report',action='store_true'); a=ap.parse_args()
+    ap=argparse.ArgumentParser(); ap.add_argument('--regress-three',action='store_true'); ap.add_argument('--report',action='store_true'); ap.add_argument('--standards',action='store_true');a=ap.parse_args()
     if a.regress_three: regress_three()
     if a.report: report()
+    if a.standards:
+        from standards import assess
+        result=assess(json.loads((ROOT/'docs/standards/requirements.json').read_text(encoding='utf-8')))
+        print(json.dumps(result,ensure_ascii=False,indent=2))
+        raise SystemExit(0 if result['standards_status']=='EVIDENCE_COMPLETE' else 2)

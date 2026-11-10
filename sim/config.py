@@ -16,6 +16,7 @@ KEYS = ('train', 'infer', 'batch', 'deliv')
 
 @dataclass(frozen=True)
 class Config:
+    accounting_version: int = 4
     dt: float = .25
     eta: float = .95
     soc_max: float = .95
@@ -51,6 +52,8 @@ class Config:
     seed: int = 20261110
 
     def validate(self):
+        if self.accounting_version not in (3,4): raise ValueError('unknown accounting version')
+        if not 0<=self.activation_beta<=.5: raise ValueError('activation fractions must sum to at most one')
         vals = asdict(self)
         if not all(np.isfinite(v) for v in vals.values()):
             raise ValueError('configuration contains non-finite values')

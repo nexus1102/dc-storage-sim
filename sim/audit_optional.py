@@ -24,7 +24,7 @@ def main():
         # Store actual shortages explicitly, never silently assert feasibility.
         df['reserve_slack']=np.maximum.reduce([np.zeros(len(df)),df.floor-df.reserve_commit,
                            df.reserve_commit+df.reg_up*cfg.reg_duration/cfg.eta-df.soc])
-        throughput=cfg.dt*(.5*(df.charge+df.discharge).sum()+cfg.activation_beta*(df.reg_up+df.reg_dn).sum())
+        throughput=cfg.dt*((1. if cfg.accounting_version==4 else .5)*(df.charge+df.discharge).sum()+cfg.activation_beta*(df.reg_up+df.reg_dn).sum())
         deg=unit_cost(.3)*throughput
         thermal_error=abs(df.cold.iloc[-1]-.5)
         terminal_error=abs(df.soc.iloc[-1]-init['soc'])

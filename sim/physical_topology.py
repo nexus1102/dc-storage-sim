@@ -83,7 +83,7 @@ def architecture(name,n=5,energy=.5,power=2.,dual_cord=True):
         LoadGroup('rack_A',('A',),.5),LoadGroup('rack_B',('B',),.5))
     return Topology(name,tuple(units),tuple(PowerPath(p,n*power) for p in paths),groups,n*power).validate()
 
-def add_security(m,site,topology,cfg,prefix,scope='module'):
+def add_security(m,site,topology,cfg,prefix,scope='module',activation=None):
     """Component SOC and outage routing, attached to the shared operational kernel.
 
 Outage demand uses the maximum forward site load over the required ride window.
@@ -102,7 +102,11 @@ constant demand bound; no expected-duration CVaR approximation is used here.
     reg_up={u.name:vector('reg_up_'+u.name,u.power) for u in topology.units}
     reg_dn={u.name:vector('reg_dn_'+u.name,min(u.power,cfg.charge_rate*u.energy*u.soh)) for u in topology.units}
     for u in topology.units:
-        con('soc_recur_'+u.name,unit_soc[u.name]==unit_soc[u.name].roll(t=1)+cfg.dt*(cfg.eta*charge[u.name]-discharge[u.name]/cfg.eta))
+        delta=cfg.dt*(cfg.eta*charge[u.name]-discharge[u.name]/cfg.eta)
+        if cfg.accounting_version==4:
+            au=xr.DataArray(activation['up'],coords=[ix]);ad=xr.DataArray(activation['dn'],coords=[ix])
+            delta=delta+cfg.dt*(cfg.eta*ad*reg_dn[u.name]-au*reg_up[u.name]/cfg.eta)
+        con('soc_recur_'+u.name,unit_soc[u.name]==unit_soc[u.name].roll(t=1)+delta)
         con('unit_up_'+u.name,discharge[u.name]+reg_up[u.name]<=u.power)
         con('unit_down_'+u.name,charge[u.name]+reg_dn[u.name]<=min(u.power,cfg.charge_rate*u.energy*u.soh))
         con('unit_reg_energy_'+u.name,unit_soc[u.name]+cfg.eta*cfg.reg_duration*reg_dn[u.name]<=cfg.soc_max*u.energy*u.soh)

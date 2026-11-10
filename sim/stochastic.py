@@ -50,7 +50,18 @@ def evaluate(first,cases,modules=6,cfg=Config(),**options):
         for key,values in first.items():
             rhs=xr.DataArray(np.asarray(values),coords=[pd.Index(range(len(values)),name='t')])
             m.add_constraints(b.variables[key]==rhs,name=f'fixed_{key}')
-        m.add_objective(b.cost); bounds=optimize(m); r=extract(b)
+        m.add_objective(b.cost)
+        try:bounds=optimize(m)
+        except RuntimeError as exc:
+            if 'infeasible' not in str(exc):raise
+            # A changed activation trajectory can make fixed bids physically
+            # impossible, even with soft reserve penalties. Do not refit bids
+            # or invent a finite feasible cash cost.
+            records.append(dict(scenario=i,feasible=False,cost=np.nan,lo=np.nan,hi=np.nan,
+                violation=1.,reserve_shortfall_mwh=np.nan,conditional_loss_probability=np.nan,
+                eens_mwh_per_event=np.nan,reason='infeasible fixed-bid physical recourse'))
+            continue
+        r=extract(b)
         tr=r['trace']; need=tr.floor.to_numpy(); available=tr.soc.to_numpy()
         rng=np.random.default_rng(cfg.seed+5000+i)
         t=rng.integers(0,len(tr),4000)
@@ -60,7 +71,7 @@ def evaluate(first,cases,modules=6,cfg=Config(),**options):
         # End-of-slot states: a fault at the start sees previous-slot SOC.
         event_soc=np.roll(tr.soc.to_numpy(),1)[t]
         short=np.maximum(0.,event_load*tau-np.minimum(event_soc*cfg.eta,r['power']*tau))
-        records.append(dict(scenario=i,cost=r['cost'],lo=bounds.lo,hi=bounds.hi,
+        records.append(dict(scenario=i,feasible=True,cost=r['cost'],lo=bounds.lo,hi=bounds.hi,
                             violation=float((tr.reserve_slack>1e-6).mean()),
                             reserve_shortfall_mwh=float(np.maximum(need-available,0).mean()),
                             conditional_loss_probability=float((short>1e-9).mean()),

@@ -50,11 +50,17 @@ def build_block(m, load, price, modules, cfg=Config(), *, prefix='s0', reg=True,
                 flex=True, thermal=True, policy='dynamic', degradation='sos2',
                 shared=None, initial=None, terminal=None, soft=False, capacity_soh=1.,
                 calibration_path=None, eens_limit=None,business_override=None,
-                physical_topology=None,contingency_scope='module',service_contracts=None):
+                physical_topology=None,contingency_scope='module',service_contracts=None,
+                activation_profile=None,fixed_operation=None):
     cfg.validate()
     load = load.reset_index(drop=True).copy()
     price = np.asarray(price,float)
     n = len(load)
+    corrected=cfg.accounting_version==4
+    if activation_profile is not None and not corrected: raise ValueError('activation profiles require accounting v4')
+    activation={k:np.broadcast_to(np.asarray((activation_profile or {}).get(k,cfg.activation_beta),float),(n,)).copy() for k in ('up','dn')}
+    if any(not np.isfinite(a).all() or (a<0).any() for a in activation.values()) or (activation['up']+activation['dn']>1+1e-12).any():
+        raise ValueError('invalid activation fractions')
     if n==0 or list(load.columns)!=list(KEYS) or len(price)!=n:
         raise ValueError('load columns/order and price length mismatch')
     if not np.isfinite(load.to_numpy()).all() or (load.to_numpy()<0).any() or not np.isfinite(price).all():
@@ -83,6 +89,10 @@ def build_block(m, load, price, modules, cfg=Config(), *, prefix='s0', reg=True,
     ch=var('charge',upper=min(p,cfg.charge_rate*e))
     dis=var('discharge',upper=p)
     soc=var('soc',upper=cfg.soc_max*e)
+    if corrected:
+        mode=m.add_variables(binary=True,coords=[pd.Index(range(n),name='t')],name=prefix+'_charge_mode')
+        con('exclusive_charge',ch<=min(p,cfg.charge_rate*e)*mode)
+        con('exclusive_discharge',dis<=p*(1-mode))
     it=var('it')
     site=var('site')
     total=load.sum(axis=1).to_numpy()
@@ -131,11 +141,6 @@ def build_block(m, load, price, modules, cfg=Config(), *, prefix='s0', reg=True,
         con('cold_terminal_dn',cold_target-cold[-1]<=thermal_slack)
     con('site_balance',site==it+ac)
     con('bus_balance',g+dis-ch==site)
-    if initial is None:
-        con('soc_recursion',soc==soc.roll(t=1)+cfg.dt*(cfg.eta*ch-dis/cfg.eta))
-    else:
-        con('soc_init',soc[0]==initial['soc']+cfg.dt*(cfg.eta*ch[0]-dis[0]/cfg.eta))
-        con('soc_recursion',soc==soc.roll(t=1)+cfg.dt*(cfg.eta*ch-dis/cfg.eta),mask=da(np.arange(n)>0))
     slack=var('reserve_slack',upper=np.inf if soft else 0.)
     floor=var('floor')
     reserve_duration=cfg.ride_h if policy=='worst' else min(cfg.reserve_h,cfg.ride_h)
@@ -156,6 +161,33 @@ def build_block(m, load, price, modules, cfg=Config(), *, prefix='s0', reg=True,
     rd=var('reg_dn',upper=p if reg else 0.) if shared is None else shared['reg_dn']
     commit=var('reserve_commit') if shared is None else shared['reserve_commit']
     v.update(reg_up=ru,reg_dn=rd,reserve_commit=commit)
+    if corrected and reg:
+        # Conservative coordinated policy: planned cycling and AGC use
+        # different slots. Bidirectional AGC may alternate within an AGC slot.
+        reg_mode=m.add_variables(binary=True,coords=[ix],name=prefix+'_reg_mode')
+        con('reg_mode_charge',ch<=min(p,cfg.charge_rate*e)*(1-reg_mode))
+        con('reg_mode_discharge',dis<=p*(1-reg_mode))
+        con('reg_mode_up',ru<=p*reg_mode)
+        con('reg_mode_down',rd<=min(p,cfg.charge_rate*e)*reg_mode)
+    delta=cfg.dt*(cfg.eta*ch-dis/cfg.eta)
+    if corrected:
+        agc_ch=var('agc_charge_mwh');agc_dis=var('agc_discharge_mwh')
+        baseline=var('grid_schedule',upper=cfg.grid_max)
+        con('agc_charge',agc_ch==cfg.dt*da(activation['dn'])*rd)
+        con('agc_discharge',agc_dis==cfg.dt*da(activation['up'])*ru)
+        con('grid_schedule',baseline+dis-ch==site)
+        # Replace scheduled bus balance by mean metered power. The original
+        # balance constraint was not yet activation-aware.
+        m.remove_constraints(prefix+'_bus_balance')
+        con('bus_balance',g==baseline+(agc_ch-agc_dis)/cfg.dt)
+        con('no_reg_export',baseline>=ru)
+        con('reg_import_limit',baseline+rd<=cfg.grid_max)
+        delta=delta+cfg.eta*agc_ch-agc_dis/cfg.eta
+    if initial is None:
+        con('soc_recursion',soc==soc.roll(t=1)+delta)
+    else:
+        con('soc_init',soc[0]==initial['soc']+delta[0])
+        con('soc_recursion',soc==soc.roll(t=1)+delta,mask=da(np.arange(n)>0))
     con('commit_floor',commit+slack>=floor)
     con('reserve_floor',soc+slack>=commit)
     con('reg_power_up',dis+ru<=p)
@@ -165,7 +197,7 @@ def build_block(m, load, price, modules, cfg=Config(), *, prefix='s0', reg=True,
     physical=None
     if physical_topology is not None:
         from physical_topology import add_security
-        physical=add_security(m,site,physical_topology,cfg,prefix+'_physical',contingency_scope)
+        physical=add_security(m,site,physical_topology,cfg,prefix+'_physical',contingency_scope,activation)
         for key,aggregate in (('soc',soc),('charge',ch),('discharge',dis),('reg_up',ru),('reg_dn',rd)):
             con('physical_aggregate_'+key,aggregate==sum(physical[key].values()))
     if eens_limit is not None:
@@ -183,27 +215,33 @@ def build_block(m, load, price, modules, cfg=Config(), *, prefix='s0', reg=True,
     v['peak']=peak
     con('peak_bound',peak>=g)
     schedule_throughput=cfg.dt*.5*(ch+dis).sum()
-    regulation_throughput=cfg.dt*cfg.activation_beta*(ru+rd).sum()
-    throughput=schedule_throughput+regulation_throughput
-    deg=add_cost(m,schedule_throughput,e,prefix+'_deg',mode=degradation,path=calibration_path)
+    regulation_throughput=(agc_ch+agc_dis).sum() if corrected else cfg.dt*cfg.activation_beta*(ru+rd).sum()
+    throughput=(2*schedule_throughput if cfg.accounting_version==4 else schedule_throughput)+regulation_throughput
+    deg=add_cost(m,schedule_throughput,e,prefix+'_deg',mode=degradation,path=calibration_path,accounting_version=cfg.accounting_version)
     deg=deg+(15. if degradation=='legacy' else unit_cost(.3,calibration_path))*regulation_throughput
     capacity_rev=cfg.dt*cfg.reg_capacity_price*(ru+rd).sum()
     mileage_rev=cfg.dt*cfg.reg_mileage_price*cfg.mileage_ratio*cfg.performance*(ru+rd).sum()
     energy_cost=cfg.dt*(g*da(price)).sum()
     cost=energy_cost+cfg.demand_rate*peak+deg-capacity_rev-mileage_rev+cfg.penalty*(cfg.dt*slack.sum()+term+thermal_slack*cfg.thermal_c*cfg.thermal_range)
     if services is not None: cost=cost+services['cost']
+    if fixed_operation is not None:
+        for key,values in fixed_operation.items():
+            if key not in ('it','ac'): raise ValueError('only IT/cooling may be fixed by sequential control')
+            con('fixed_operation_'+key,v[key]==da(values))
     v.update(throughput=throughput,deg_cost=deg,capacity_rev=capacity_rev,mileage_rev=mileage_rev)
     return Block(prefix,v,cost,load,price,cfg,e,p,dict(reg=reg,flex=flex,thermal=thermal,policy=policy,
                  degradation=degradation,initial=initial,terminal=terminal,soft=soft,eens_limit=eens_limit,business_override=business_override,
+                 activation_profile={k:a.tolist() for k,a in activation.items()} if corrected else None,
+                 fixed_operation={k:np.asarray(a).tolist() for k,a in fixed_operation.items()} if fixed_operation is not None else None,
                  calibration=[a.tolist() for a in calibration(calibration_path)],
                  physical_topology=physical_topology.snapshot() if physical_topology else None,
                  contingency_scope=contingency_scope,service_contracts=service_contracts.snapshot() if service_contracts else None),physical,services)
 
-def optimize(m):
+def optimize(m, mip_gap=1e-8):
     # PyPSA may have initialized HiGHS with a different global thread count.
     highspy.Highs.resetGlobalScheduler(True)
     status,condition=m.solve(solver_name='highs',log_to_console=False,threads=1,
-                             random_seed=0,mip_rel_gap=1e-8)
+                             random_seed=0,mip_rel_gap=mip_gap,time_limit=120.)
     if status!='ok' or condition!='optimal':
         raise RuntimeError(f'optimization failed: {status}/{condition}')
     h=m.solver_model
@@ -251,6 +289,7 @@ def extract(block):
                 terminal_slack=float(val(v['terminal_slack'])),trace=df,
                 thermal_terminal_slack=float(val(v['thermal_terminal_slack'])),
                 config=cfg.snapshot(),options=block.options)
+    if cfg.accounting_version==4:result['throughput_basis']='full_ac_bidirectional_mwh'
     # Optional extensions do not alter the historical V3 result schema.
     if block.physical is not None:
         from physical_topology import export_security
@@ -263,7 +302,7 @@ def solve(load,price,modules=6,cfg=Config(),**options):
     m=linopy.Model()
     b=build_block(m,load,price,modules,cfg,**options)
     m.add_objective(b.cost)
-    bounds=optimize(m)
+    bounds=optimize(m,mip_gap=1e-6 if cfg.accounting_version==4 else 1e-8)
     if options.get('eens_limit') is not None:
         # Lexicographic augmentation removes weakly efficient epsilon solutions.
         primary=float(m.objective.value)

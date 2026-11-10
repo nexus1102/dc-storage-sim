@@ -23,7 +23,7 @@ def standby_reference(load,price,topology,cfg=Config(),scope='module',contracts=
     m.add_constraints(b.variables['discharge']==0,name='backup_no_dispatch')
     for unit in topology.units:
         m.add_constraints(b.physical['soc'][unit.name]==cfg.soc_max*unit.energy*unit.soh,name='backup_soc_'+unit.name)
-    m.add_objective(b.cost);bounds=optimize(m);r=extract(b)
+    m.add_objective(b.cost);bounds=optimize(m,mip_gap=1e-6);r=extract(b)
     r.update(modules=len(topology.units),lo=bounds.lo,hi=bounds.hi)
     r['options']['reference_policy']='backup_only_at_configured_soc_max'
     return r
@@ -73,6 +73,10 @@ def envelope(reference,load,price,topology,start,duration_slots,cfg=Config(),sco
     n=len(load)
     if start<0 or duration_slots<1 or start+duration_slots>n: raise ValueError('event outside modeled day')
     if mode not in ('joint','battery_only'): raise ValueError('invalid capability attribution')
+    import json
+    same=lambda x,y:json.dumps(x,sort_keys=True)==json.dumps(y,sort_keys=True)
+    if not same(reference['config'],cfg.snapshot()) or not same(reference['options'].get('physical_topology'),topology.snapshot()) or not same(reference['options'].get('service_contracts'),contracts.snapshot() if contracts else None):
+        raise ValueError('capability baseline assumptions disagree')
     m=linopy.Model()
     b=build_block(m,load,price,len(topology.units),cfg,physical_topology=topology,
                   contingency_scope=scope,service_contracts=contracts,reg=False,flex=False)
@@ -101,7 +105,7 @@ def envelope(reference,load,price,topology,start,duration_slots,cfg=Config(),sco
         for t in range(n):
             m.add_constraints(b.variables['it'][t]==float(ref.it.iloc[t]),name=f'fixed_it_{t}')
             m.add_constraints(b.variables['ac'][t]==float(ref.ac.iloc[t]),name=f'fixed_ac_{t}')
-    m.add_objective(-p); bounds=optimize(m)
+    m.add_objective(-p); bounds=optimize(m,mip_gap=1e-6)
     maximum=float(p.solution)
     # Recover a concrete least-cost witness at the certified event power.
     # MIP feasibility tolerances can make the first optimum a few micro-MW
@@ -109,7 +113,7 @@ def envelope(reference,load,price,topology,start,duration_slots,cfg=Config(),sco
     margin=max(1e-5,abs(maximum)*1e-6)
     guaranteed=max(0.,maximum-margin)
     m.add_constraints(p>=guaranteed,name='optimal_firm_power')
-    m.objective=b.cost;optimize(m)
+    m.objective=b.cost;optimize(m,mip_gap=1e-6)
     witness=extract(b);witness['modules']=len(topology.units)
     return dict(power_mw=guaranteed,power_lo=max(0.,min(guaranteed,-bounds.hi)),power_hi=max(0.,-bounds.lo),
                 witness_margin_mw=margin,duration_h=duration_slots*cfg.dt,delivered_mwh=guaranteed*duration_slots*cfg.dt,

@@ -67,7 +67,7 @@ def rolling(load,price,modules=6,cfg=Config(),forecast_error=0.,horizon=16,seed=
         current={k:float(row[k]) for k in ('soc','cold',*['queue_'+k for k in KEYS])}
         current['peak']=max((x['grid'] for x in history),default=0.)
     df=pd.DataFrame(history)
-    throughput=cfg.dt*(.5*(df.charge+df.discharge).sum()+cfg.activation_beta*(df.reg_up+df.reg_dn).sum())
+    throughput=cfg.dt*((1. if cfg.accounting_version==4 else .5)*(df.charge+df.discharge).sum()+cfg.activation_beta*(df.reg_up+df.reg_dn).sum())
     cost=cfg.dt*np.dot(df.grid,price)+cfg.demand_rate*df.grid.max()+throughput*unit_cost(.3)-cfg.dt*(cfg.reg_capacity_price+cfg.reg_mileage_price*cfg.mileage_ratio*cfg.performance)*(df.reg_up+df.reg_dn).sum()+cfg.penalty*cfg.dt*df.reserve_slack.sum()
     cost+=cfg.penalty*abs(current['soc']-target['soc'])
     cost+=cfg.penalty*abs(current['cold']-target['cold'])*cfg.thermal_c*cfg.thermal_range

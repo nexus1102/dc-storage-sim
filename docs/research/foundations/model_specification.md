@@ -1,5 +1,7 @@
 # 架构、服务约束与闲置能力的形式化定义
 
+2026-11-11补充：当前共享核心默认accounting_version=4，修正[吞吐计费与激活能量闭合](../accounting_derivation.md)，新增[独立失电/恢复策略](../outage_policy.md)与导出能力历史审核。正式固定范围实验入口为`sim/thesis_experiments.py`；历史V3命令显式使用accounting_version=3，不用于宣称修正口径的经济结论。规范匹配遵守[证据矩阵](../../standards/验收规范与证据矩阵.md)，当前总符合性仍BLOCKED。
+
 实现入口：sim/physical_topology.py、service_contracts.py、capability.py；共享运行内核仍是dispatch.py。旧V3默认入口与基线保留；显式传入physical_topology/service_contracts才启用新模型。运行研究实验：`python sim/foundation_experiments.py --slots 24`。
 
 ## 1. 既有架构是固定图，不是待配置的模块总数

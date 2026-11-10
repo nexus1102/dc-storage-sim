@@ -21,6 +21,10 @@ def replay(run_dir,destination):
     for name in ('load_business_24h.csv','degradation_calibration.csv'):
         shutil.copy2(run_dir/'inputs'/name,inputs/name)
     shutil.copy2(run_dir/'inputs/parameter_provenance.csv',destination/'docs/parameter_provenance.csv')
+    for name in ('验收规范与证据矩阵.md','requirements.json'):
+        if (run_dir/'inputs'/name).is_file():
+            (destination/'docs/standards').mkdir(exist_ok=True)
+            shutil.copy2(run_dir/'inputs'/name,destination/'docs/standards'/name)
     if (run_dir/'inputs/requirements-lock.txt').is_file():
         shutil.copy2(run_dir/'inputs/requirements-lock.txt',destination/'requirements-lock.txt')
     for name in ('openb_pod_list_default.csv','openb_pod_list_cpu050.csv'):
@@ -37,7 +41,9 @@ def replay(run_dir,destination):
     # Legacy PyPSA scripts predate DC_STORAGE_ROOT. Point their historical CSV
     # lookup to the frozen replay root without editing any sealed source.
     legacy_fix='' if modern else f"import pipeline_v2;pipeline_v2.ROOT=Path({str(destination)!r});"
-    if 'stage' in c:
+    if c.get('suite')=='thesis':
+        entry='thesis_experiments.py';arguments=['--slots',str(c['slots'])]
+    elif 'stage' in c:
         entry='experiments.py';arguments=['--stage',str(c['stage']),'--scenarios',str(c['n_scen'])]
     elif 'slots' in c and 'contracts' in c:
         entry='foundation_experiments.py';arguments=['--slots',str(c['slots']),'--reference',c.get('reference_mode','economic')]

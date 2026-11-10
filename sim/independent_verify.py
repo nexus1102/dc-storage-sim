@@ -19,13 +19,26 @@ def verify_trace(df,meta):
     add('finite',0 if np.isfinite(df.to_numpy()).all() else np.inf)
     if not rows[-1]['pass']: return pd.DataFrame(rows)
     init=opt.get('initial'); term=opt.get('terminal')
+    corrected=c.get('accounting_version',3)==4
+    activation=opt.get('activation_profile') or {'up':c['activation_beta'],'dn':c['activation_beta']}
+    ec=dt*np.asarray(activation['dn'])*df.reg_dn if corrected else 0.
+    ed=dt*np.asarray(activation['up'])*df.reg_up if corrected else 0.
     prev=np.r_[df.soc.iloc[-1] if init is None else init['soc'],df.soc.to_numpy()[:-1]]
-    eq('soc_recursion',df.soc-prev-dt*(eta*df.charge-df.discharge/eta))
+    eq('soc_recursion',df.soc-prev-dt*(eta*df.charge-df.discharge/eta)-eta*ec+ed/eta)
     add('soc_bounds',max(-df.soc.min(),(df.soc-c['soc_max']*e).max()))
     add('power_bounds',max((df.discharge-p).max(),(df.charge-min(p,c['charge_rate']*e)).max()))
     add('nonnegative',-df.drop(columns=['price']).min().min())
     add('grid_capacity',(df.grid-c['grid_max']).max())
-    eq('bus_balance',df.grid+df.discharge-df.charge-df.site)
+    eq('bus_balance',df.grid+df.discharge-df.charge-df.site-(ec-ed)/dt)
+    if corrected:
+        eq('agc_meter_charge',df.agc_charge_mwh-ec)
+        eq('agc_meter_discharge',df.agc_discharge_mwh-ed)
+        eq('scheduled_grid',df.grid_schedule-df.site-df.charge+df.discharge)
+        add('schedule_exclusive',np.minimum(df.charge,df.discharge).max())
+        add('regulation_schedule_exclusive',np.minimum(df.charge+df.discharge,df.reg_up+df.reg_dn).max())
+        add('no_reg_export',(df.reg_up-df.grid_schedule).max())
+        add('reg_import_limit',(df.grid_schedule+df.reg_dn-c['grid_max']).max())
+    for key,values in (opt.get('fixed_operation') or {}).items():eq('fixed_operation_'+key,df[key]-np.asarray(values))
     it=sum(df['service_'+key] if 'service_'+key in df else df['load_'+key]-df['defer_'+key]+df['recover_'+key] for key in KEYS)
     eq('it_balance',df.it-it)
     eq('site_balance',df.site-df.it-df.ac)
@@ -74,17 +87,18 @@ def verify_trace(df,meta):
     add('reg_power_dn',(df.charge+df.reg_dn-min(p,c['charge_rate']*e)).max())
     add('reg_energy_up',(df.reserve_commit+df.reg_up*c['reg_duration']/eta-df.soc-df.reserve_slack).max())
     add('reg_energy_dn',(df.soc+df.reg_dn*c['reg_duration']*eta-c['soc_max']*e).max())
-    throughput=dt*(.5*(df.charge+df.discharge).sum()+c['activation_beta']*(df.reg_up+df.reg_dn).sum())
+    corrected=c.get('accounting_version',3)==4
+    regulated=float(np.sum(ec+ed)) if corrected else dt*c['activation_beta']*(df.reg_up+df.reg_dn).sum()
+    throughput=dt*(1. if corrected else .5)*(df.charge+df.discharge).sum()+regulated
     eq('throughput',throughput-meta['throughput'])
     if 'calibration' in opt:
         depth,rates=map(np.asarray,opt['calibration'])
         scheduled=dt*.5*(df.charge+df.discharge).sum()
-        regulated=dt*c['activation_beta']*(df.reg_up+df.reg_dn).sum()
         if opt['degradation']=='legacy': deg=15.*throughput
         elif opt['degradation']=='shallow': deg=rates[0]*throughput
         else:
             knots=np.r_[0.,depth,12.]
-            costs=knots*np.r_[rates[0],rates,rates[-1]]
+            costs=(2 if corrected else 1)*knots*np.r_[rates[0],rates,rates[-1]]
             deg=e*np.interp(scheduled/e,knots,costs)+rates[0]*regulated
         add('degradation_reconcile',abs(deg-meta['deg_cost']),1e-2)
     cost=dt*np.dot(df.grid,df.price)+c['demand_rate']*max(df.grid.max(),(init or {}).get('peak',0.))+meta['deg_cost']-dt*(c['reg_capacity_price']+c['reg_mileage_price']*c['mileage_ratio']*c['performance'])*(df.reg_up+df.reg_dn).sum()+meta['penalty']+meta.get('service_cost',0.)
@@ -111,6 +125,20 @@ def verify_directory(path):
             chk=pd.concat([chk,verify_research(df,meta,physical,services)],ignore_index=True)
         chk['case']=meta_path.stem; rows.append(chk)
     if not rows: raise ValueError('no exported traces found')
+    manifest=Path(path)/'capability_manifest.json'
+    if manifest.is_file():
+        from research_verify import verify_capability
+        def read_case(name):
+            if Path(name).name!=name or name in ('.','..'):raise ValueError('invalid capability case name')
+            result=json.loads((Path(path)/f'trace_{name}.json').read_text(encoding='utf-8'))
+            result['trace']=pd.read_csv(Path(path)/f'trace_{name}.csv')
+            for kind in ('physical','service'):
+                file=Path(path)/f'{kind}_{name}.csv'
+                if file.is_file():result[kind+'_trace']=pd.read_csv(file)
+            return result
+        for entry in json.loads(manifest.read_text(encoding='utf-8')):
+            reference=read_case(entry['reference']);result=dict(entry['result'],witness=read_case(entry['witness']))
+            chk=verify_capability(reference,result,entry['start'],entry['duration_slots']);chk['case']=entry['witness'];rows.append(chk)
     return pd.concat(rows,ignore_index=True)
 
 if __name__=='__main__':

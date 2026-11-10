@@ -9,16 +9,14 @@
     τ 与 ε 与 t0 独立
 
 失供能量
-    need  = P_IT(t0)·(1+ε)·τ
-    avail = SoC(t0)·η_dis                     电池可放出的电量
-    short = max(0, need − avail) + max(0, P_IT(t0)(1+ε) − P_UPS)·τ
-
-第二个加项是功率不足导致的失供：即使电量够，放不出来也算失负荷。
-对 UPS 型储能 P_UPS 通常大于关键负荷，这一项为 0，但保留它以覆盖降额运行。
+    need = critical_load * duration
+    delivered = min(SOC * eta, UPS_power * duration)
+    short = max(0, need - delivered)
+功率和电量限制作用于同一交付量，不能相加重复计算缺额。
 
 输出
     LOLP   失负荷概率 = P(short > 0)
-    EENS   期望失供能量（MWh/日）
+    EENS   给定失电事件的条件期望失供能量（MWh/事件），非MWh/日
     CVaR95 最坏 5% 情景的平均失供能量
     risk_by_hour  各时刻发生故障时的失负荷概率
 """
@@ -78,6 +76,9 @@ def monte_carlo(
             risk_by_hour[t] = fail_mask[m].mean()
 
     return {
+        "metric_basis": "conditional_per_grid_outage_event",
+        "EENS_MWh_per_event": eens,
+        "zero_loss_probability_upper95": float(1-.05**(1/n_scen)) if not fail_mask.any() else None,
         "LOLP": lolp,
         "EENS_MWh": eens,
         "CVaR95_MWh": cvar95,

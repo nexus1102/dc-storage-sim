@@ -46,7 +46,7 @@ def stage0(out,load,price,cfg,n_scen):
                          dispatchable=float((cfg.soc_max*r['energy']-r['trace'].floor).mean())))
     df=pd.DataFrame(rows); df.to_csv(out/'results_v3.csv',index=False,float_format='%.10f')
     sensitivity=[]
-    for _,row in provenance_table().query("source_type == '假设'").iterrows():
+    for _,row in provenance_table(cfg).query("source_type == '假设'").iterrows():
         for bound in ('low','high'):
             value=row[bound]
             if row.parameter=='years': value=int(value)
@@ -185,7 +185,7 @@ def stage3(out,load,price,cfg,n_scen):
     return checks
 
 def run_stage(stage,n_scen=40,input_path=None):
-    started=time.perf_counter(); cfg=Config()
+    started=time.perf_counter(); cfg=Config(accounting_version=3)
     run=RunContext(ROOT,prefix=f'v3s{stage}')
     frozen=run.freeze_input(Path(input_path or INPUTS/'load_business_24h.csv'))
     run.freeze_input(INPUTS/'degradation_calibration.csv')

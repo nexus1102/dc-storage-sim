@@ -1,0 +1,113 @@
+{
+  "software_status": "PASS",
+  "standards_status": "BLOCKED",
+  "certification": false,
+  "empirical_sla": false,
+  "run": "runs\\thesis_20261111_005814_330365",
+  "seal_sha256": "e1640be2d11c9becc6185a3d3fe00086cec3f1583d968101d26bf90c97cb222e",
+  "tests": {
+    "tests": 55,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "test_report_sha256": "276cc857a22fef411d7b43ad31c0739ff0e47749f0b83c01a992d9e79cb9f5c8",
+  "independent_checks": 33139,
+  "acceptance": {
+    "software_status": "PASS",
+    "standard_compliance": "BLOCKED",
+    "empirical_sla": false,
+    "full_day": true,
+    "checks": 33139,
+    "serialized_checks": 33139,
+    "references": 20,
+    "capability_cases": 80,
+    "factorial_cells": 16,
+    "outage_cases": 96,
+    "seconds": 1773.6671301000024,
+    "scope": "fixed assets, synthetic contracts, deterministic representative-day mechanisms; no statistical population claim"
+  },
+  "model_source_sha256": {
+    "acceptance.py": "5924e27fd715ea08236c542c39ae79138188a86ceb101a196db51a0748f51e8c",
+    "audit_optional.py": "dbe084768bb7d24f73ecaa4fb66e7731306affaddf22d25253168ee6d3bf0754",
+    "business.py": "3e1798f45a4293eccfd7b9903e90171119defe6ad147896689ae5888a2d77905",
+    "business_evidence.py": "20e1092241f61e8ed549c0c7b0f3b0f3f8bdb5b53900fa0127c85a3d3db9e595",
+    "capability.py": "96f81388f71f310fe7a8dab882db7295bd46a50f6655cd1100735317b98394c5",
+    "config.py": "61e547ad8e1cc8f9366460e058ff5ad65e7284e1a13db01cbc9c17adbbd4456c",
+    "coupling.py": "d5ab8bb33cb3ee10b35e909bef14f684d6b5531bbb669b26b74dcf53562cfe39",
+    "degradation.py": "5e61632e93f94ab54de9025ae39a66566a0897a90ba3efaa75d0710a8d6d61b1",
+    "dispatch.py": "ea72fdd69030df1a06ebbf05752d52a37e0e347819ca664df0b51721c0a7c57e",
+    "dro.py": "a0c203d62ec01b1acf5ecff5f044ed928854af6a529df602ce9b4eee252bc3fb",
+    "economics.py": "0b227ce607eec7ccfe94660663c733dfb3cdb90163af7cbbeaffade1182ba495",
+    "energy_metrics.py": "1a932313a9a00b294affec7ce9fa7b090644a3160fbce9700e2114f24bd7a171",
+    "experiments.py": "f94871d4ef516e5cbe2a52870fc39a96c3ca2bd2a04031285ef8613372bd89c3",
+    "foundation_experiments.py": "0f008bad5b4f851f7633c18f310fd21a29d89500aa45cc0aa6ad91177c160624",
+    "independent_verify.py": "aac5bd8936b17cbdfc6b1bfb5242316076d1c835207d4df1d0521459f6099f4e",
+    "intervals.py": "41c8177cab17d36521af3e4aa2cbadccfe13da75a7806b6f4f1f23703060bef8",
+    "jobs.py": "7421296bf875716e011a7518a9b665a50c48618f78a097c7a4daebfa4d22bd41",
+    "migration.py": "cf7f60147cbfa3ff77e0b12035ba9a4108dbd98a087500f5040ab9100610e5f2",
+    "mpc.py": "28a95d51bbf8f41602ca031c638d70af20caa925d6c7b31e9930dd07590c7f48",
+    "outage.py": "f773ab7df09f2dca5e016e8033a7e648a6d69dff15c433c4b4c4679ea625d698",
+    "physical_topology.py": "990c37c62b3b3229b19b3db4d7489ada3932dc22c4188ed598ac08cc42639f37",
+    "provenance.py": "d276b64940f37be6f98f17e76cd45761dcd76c86a3edbcf848a4f2e112e6c923",
+    "reliability.py": "7359a7579a333fc7964083efc576b34c6d0e3bc77c733d5f9a02e5584800b9a4",
+    "reproduce.py": "ab9f269a4cefe210a31d909254ebe95dcad7672cbc24178d606364bcda7070b2",
+    "research_verify.py": "550713f376ed52673b5537f21025dee26551edd2fc9cb2466f3d314a0a8e8d97",
+    "runctx.py": "67536977b742ca54df438a34d9d26490058b49e28e1d9dbefb3b6210eff29c7e",
+    "seal_delivery.py": "934b5a58d70046fdebc1356bf5a2bac88d02e4f0edd87d384ee467634bf54d36",
+    "service_contracts.py": "72464a78a02e43ec388e8614fb15f902180691d8c94af262ba35f9b2ef241f25",
+    "sizing.py": "ed95a213789a8214303f3ed3dd3d56c172e4ecf9aef3c64bfc480d3a53f0f8a6",
+    "standards.py": "8ed1c73e786e06abede038de0e549da926f995ac8c06aa9a10c8b8b247939ea9",
+    "stochastic.py": "64c57d5d1e47e9fa4387fb228cde3770a68daafd33d19b293149ccee475e26ac",
+    "thesis_experiments.py": "8a851e23dd3332e8e02ec77d8a6e3e11ca789ac22a4de2a9a3f0bc88d6b650ec",
+    "verify.py": "fce3c6880aa3ac0fa3a3ceb097b39a4f71b42ad20286b7eb5e1d718960bca37f",
+    "reference\\business_v2.py": "a5156791af80518ff06a8256511b4382398f5fe6694fd6700c845b5e14266f94",
+    "reference\\checks.py": "ee9f0389ceefe4f4e2a1a3840f3175b317c99bccfe7febeb786343f9054b2c03",
+    "reference\\pipeline_v2.py": "8f071eb5313f4e94bb05c26fe9b1e7b43639231c2c9840390d67d26853dfe980",
+    "reference\\topology.py": "b634f3efd8596dc4970bcb3ef06d8e687bcd13a8d688145fa1bd97773e17fdd5",
+    "reference\\__init__.py": "da628d36808eadeeb3a1a82ccdbabba7d4808da67f877f741fb4b63b2acf6439"
+  },
+  "legacy_stages": [
+    {
+      "stage": 0,
+      "run": "replay\\clean_thesis_dc853a6\\runs\\v3s0_20261111_004654_813944",
+      "seal_sha256": "bfd51d43d938f147d61e7283658d1e2db3819498df0f50fb73b37a771e223344"
+    },
+    {
+      "stage": 1,
+      "run": "replay\\clean_thesis_dc853a6\\runs\\v3s1_20261111_005055_247750",
+      "seal_sha256": "7896337456a609a92bfc06624fe3eb3222c829518fbdeec381d0e3ce47e880bc"
+    },
+    {
+      "stage": 2,
+      "run": "replay\\clean_thesis_dc853a6\\runs\\v3s2_20261111_005114_958729",
+      "seal_sha256": "b086c2196eeb8e61f01daeabe16fee7634c261d19fa5d1c2419ee534dd7c65b3"
+    },
+    {
+      "stage": 3,
+      "run": "replay\\clean_thesis_dc853a6\\runs\\v3s3_20261111_005719_538697",
+      "seal_sha256": "36d8ff7e1b59894069e89bc72530831497581bebad527e4ff514a4aee8fd98ba"
+    }
+  ],
+  "current_source_legacy_sha256": "58fd5018c1f66755bea6479fb9aad653d056d43b3a56e426178af25288d4d946",
+  "frozen_smoke_replay": {
+    "csv_hashes_matched": 60,
+    "proof_sha256": "1fa82020f25d8643c5c99b9dba034f8ef0119a9423fa57156e4f9e0d4bce4e23",
+    "seal_sha256": "db1ed16e4c6af736bc6eb09769dd2ede9d7066df34d9b27e8b64de75edf909a7",
+    "full_day": false
+  },
+  "matched_reference_audit": {
+    "run": "runs\\matched_20261111_013313_597650",
+    "capacity_points": 16,
+    "independent_checks": 5813,
+    "seal_sha256": "5016f09e05744f4d083d713c5d2af55887ed78b05774369dea9268ccf638af07",
+    "equal_reference_it_cooling_and_job_history": true
+  },
+  "interpretation": "representative-day mechanism study with synthetic contracts; no population, current-market or engineering certification claim",
+  "evidence_gaps": [
+    "standard clause reviews and external engineering tests",
+    "site topology and device calibration",
+    "real GPU/LLM service calibration",
+    "JCR/CAS partition evidence"
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "date": "2026-11-11",
+  "scope": "external measured data; no target-site validation or default parameter adoption",
+  "core_changed": false,
+  "default_inputs_changed": false,
+  "battery": {
+    "cells": [
+      {
+        "cell": "1-1",
+        "cycles": 1504,
+        "initial_capacity_ah": 1.1712906222222221,
+        "last_capacity_ah": 0.8804153416666667,
+        "last_nominal_capacity_fraction": 0.8003775833333333,
+        "dc_roundtrip_median": 0.8962609499483399,
+        "median_transition_lower": 0.830358127601298,
+        "median_transition_upper": 0.9782895970231976,
+        "max_integral_relative_error": 0.004148982844634875,
+        "max_discharge_c": 5.000336363636364
+      },
+      {
+        "cell": "1-2",
+        "cycles": 2678,
+        "initial_capacity_ah": 1.2022838555555555,
+        "last_capacity_ah": 0.8800746194444444,
+        "last_nominal_capacity_fraction": 0.8000678358585858,
+        "dc_roundtrip_median": 0.887070538211495,
+        "median_transition_lower": 0.8217769860583066,
+        "median_transition_upper": 0.9682255324147181,
+        "max_integral_relative_error": 0.0051705148612281385,
+        "max_discharge_c": 5.0
+      }
+    ],
+    "fit": {
+      "train_cell": "1-1",
+      "first_training_cycle": 11,
+      "last_training_cycle": 902,
+      "loss_per_observed_dc_wh_efc": 7.739148743947944e-05,
+      "intercept": 1.0012464298610821,
+      "units": "relative capacity loss per recorded DC nominal-Wh equivalent full cycle",
+      "chronological_holdout": {
+        "n": 602,
+        "rmse": 0.07568884464999072,
+        "frozen_proxy_rmse": 0.10981730356057436
+      },
+      "other_protocol_cell_holdout": {
+        "n": 2668,
+        "rmse": 0.024246587192762886,
+        "frozen_proxy_rmse": 0.06776134003924354
+      },
+      "transfer_status": "external accelerated-cell prior only; not a UPS pack parameter",
+      "identifiability": "cycle/calendar contributions and DoD dependence not separately identified",
+      "leakage_control": "first 10 cycles normalize each cell; fit uses only first 60% of cell 1-1; other cell after first 10 never fitted"
+    },
+    "conditions": "two selected LFP/graphite 1.1Ah/3.3V cells, 30C; multistage accelerated cycling; no shallow-UPS or calendar separation"
+  },
+  "arrivals": {
+    "code_2023": {
+      "requests": 8819,
+      "first_timestamp": "2023-11-16 18:17:03.979960",
+      "last_timestamp": "2023-11-16 19:14:19.928016",
+      "timezone": "unspecified in source; not assumed UTC",
+      "observed_span_seconds": 3435.948056,
+      "complete_minutes": 56,
+      "train_minutes": 39,
+      "holdout_minutes": 17,
+      "train_mean_requests_per_second": 3.174358974358974,
+      "holdout_mean_requests_per_second": 1.0696078431372549,
+      "constant_rate_holdout_rmse_requests_per_minute": 153.36520865534098,
+      "count_fano_60s": 165.13646074549936,
+      "token_quantiles": {
+        "ContextTokens": {
+          "p50": 1469,
+          "p90": 5194,
+          "p99": 7436
+        },
+        "GeneratedTokens": {
+          "p50": 13,
+          "p90": 55,
+          "p99": 252
+        }
+      },
+      "identifies": [
+        "arrival count profiles",
+        "input/output token length distributions"
+      ],
+      "does_not_identify": [
+        "response-time SLA",
+        "service rate",
+        "watts",
+        "joules/request",
+        "deadlines"
+      ]
+    },
+    "conv_2023": {
+      "requests": 19366,
+      "first_timestamp": "2023-11-16 18:15:46.680590",
+      "last_timestamp": "2023-11-16 19:14:08.402527",
+      "timezone": "unspecified in source; not assumed UTC",
+      "observed_span_seconds": 3501.721937,
+      "complete_minutes": 58,
+      "train_minutes": 40,
+      "holdout_minutes": 18,
+      "train_mean_requests_per_second": 5.9279166666666665,
+      "holdout_mean_requests_per_second": 4.732407407407408,
+      "constant_rate_holdout_rmse_requests_per_minute": 86.95140764626338,
+      "count_fano_60s": 16.122322560978933,
+      "token_quantiles": {
+        "ContextTokens": {
+          "p50": 1020,
+          "p90": 2735,
+          "p99": 4142
+        },
+        "GeneratedTokens": {
+          "p50": 129,
+          "p90": 424,
+          "p99": 601
+        }
+      },
+      "identifies": [
+        "arrival count profiles",
+        "input/output token length distributions"
+      ],
+      "does_not_identify": [
+        "response-time SLA",
+        "service rate",
+        "watts",
+        "joules/request",
+        "deadlines"
+      ]
+    },
+    "code_2024": {
+      "requests": 16803695,
+      "first_timestamp": "2024-05-10 00:00:00.009930+00:00",
+      "last_timestamp": "2024-05-16 23:59:59.929501+00:00",
+      "timezone": "UTC",
+      "observed_span_seconds": 604799.919571,
+      "complete_minutes": 10078,
+      "train_minutes": 7054,
+      "holdout_minutes": 3024,
+      "train_mean_requests_per_second": 24.096498440601078,
+      "holdout_mean_requests_per_second": 36.38764329805996,
+      "constant_rate_holdout_rmse_requests_per_minute": 1685.1403233605658,
+      "count_fano_60s": 1221.5957702932897,
+      "token_quantiles": {
+        "ContextTokens": {
+          "p50": 1930,
+          "p90": 6251,
+          "p99": 7685
+        },
+        "GeneratedTokens": {
+          "p50": 8,
+          "p90": 43,
+          "p99": 271
+        }
+      },
+      "identifies": [
+        "arrival count profiles",
+        "input/output token length distributions"
+      ],
+      "does_not_identify": [
+        "response-time SLA",
+        "service rate",
+        "watts",
+        "joules/request",
+        "deadlines"
+      ]
+    }
+  },
+  "benchmark": {
+    "model": "llama2-70b-99",
+    "hardware": "SR680a_V3_B200SXMx8_TRT",
+    "measured_average_watts": 10442.2597402597,
+    "completed_requests_per_second": 361.47,
+    "gross_joules_per_request": 28.888316430850967,
+    "response_p99_s": 115.213630188,
+    "ttft_p99_s": 0.424791816,
+    "tpot_p99_s": 0.13138322,
+    "benchmark_ttft_target_s": 2.0,
+    "benchmark_tpot_target_s": 0.2,
+    "assumption": "active whole-system average, not GPU TDP or marginal request energy",
+    "not_identifiable": [
+      "idle intercept",
+      "marginal joules/request",
+      "target-site SLO",
+      "site PUE"
+    ],
+    "sla_warning": "TTFT, TPOT and complete response are different metrics; 0.2s proxy is not validated"
+  },
+  "curated_files": [
+    {
+      "path": "data\\empirical\\20261111\\azure_code_2023_minute.csv",
+      "sha256": "9eaa7b4d16937285684eb26b41525d591ab57980bcf90484277397d2b2cd35de",
+      "size": 2766
+    },
+    {
+      "path": "data\\empirical\\20261111\\azure_code_2024_minute.csv",
+      "sha256": "027493819757412ecb1566ead0d865f8abcd6b606c6e24b9fa968c41c9cfd350",
+      "size": 609759
+    },
+    {
+      "path": "data\\empirical\\20261111\\azure_conv_2023_minute.csv",
+      "sha256": "c8a6919e0f951ae3d5a00b71c8d57c9c3261047942ef1e7be0266e7e53a4edab",
+      "size": 3250
+    },
+    {
+      "path": "data\\empirical\\20261111\\hust_two_cells.csv",
+      "sha256": "c43dd33e2d1ec8c03e8cf2ed6a83ba4ccd6bb8d9abea1ec1d606380a00be1123",
+      "size": 872686
+    },
+    {
+      "path": "data\\empirical\\20261111\\mlperf_llm_power.csv",
+      "sha256": "9e03ecede25161e3f8f0f9c76d04be83750abc75d47a71e8d5367e73e7bbbcc3",
+      "size": 1385
+    }
+  ],
+  "acquisition": {
+    "date": "2026-11-11",
+    "scope": "external public measurements; not target-site calibration",
+    "records": [
+      {
+        "path": "external\\empirical_20261111\\azure\\AzureLLMInferenceDataset2023.md",
+        "url": "https://raw.githubusercontent.com/Azure/AzurePublicDataset/215becdacba1ce682c7368642ce97d5a332de7a6/AzureLLMInferenceDataset2023.md",
+        "size": 2636,
+        "sha256": "9996a0d9e4d94ee52bc3564a33f51e172a34f4a58960a05f066a2b8061f9a1e0",
+        "repository": "Azure/AzurePublicDataset",
+        "commit": "215becdacba1ce682c7368642ce97d5a332de7a6"
+      },
+      {
+        "path": "external\\empirical_20261111\\azure\\LICENSE",
+        "url": "https://raw.githubusercontent.com/Azure/AzurePublicDataset/215becdacba1ce682c7368642ce97d5a332de7a6/LICENSE",
+        "size": 18653,
+        "sha256": "9bbc1ea9fe5c96df01b311a2ac864d5b18fc87b9948bfd14770e4b44db755ee9",
+        "repository": "Azure/AzurePublicDataset",
+        "commit": "215becdacba1ce682c7368642ce97d5a332de7a6"
+      },
+      {
+        "path": "external\\empirical_20261111\\azure\\AzureLLMInferenceTrace_code.csv",
+        "url": "https://raw.githubusercontent.com/Azure/AzurePublicDataset/215becdacba1ce682c7368642ce97d5a332de7a6/data/AzureLLMInferenceTrace_code.csv",
+        "size": 320117,
+        "sha256": "54e9a6d2a4bd06ba1e060304b900abbc74cbea53de96506e60fe5bb4f2277fb6",
+        "repository": "Azure/AzurePublicDataset",
+        "commit": "215becdacba1ce682c7368642ce97d5a332de7a6"
+      },
+      {
+        "path": "external\\empirical_20261111\\azure\\AzureLLMInferenceTrace_conv.csv",
+        "url": "https://raw.githubusercontent.com/Azure/AzurePublicDataset/215becdacba1ce682c7368642ce97d5a332de7a6/data/AzureLLMInferenceTrace_conv.csv",
+        "size": 719188,
+        "sha256": "2f1e5b666d4e3055fdbba98598ce2ec307767b9064e03e2fa46676dbcc7d0bf8",
+        "repository": "Azure/AzurePublicDataset",
+        "commit": "215becdacba1ce682c7368642ce97d5a332de7a6"
+      },
+      {
+        "path": "external\\empirical_20261111\\mlperf\\LICENSE.md",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/5ea4f62ef62536e6bf4d78a9b440fb9035ddfb4a/LICENSE.md",
+        "size": 10174,
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "repository": "mlcommons/inference_results_v5.1",
+        "commit": "5ea4f62ef62536e6bf4d78a9b440fb9035ddfb4a"
+      },
+      {
+        "path": "external\\empirical_20261111\\mlperf\\summary_results.json",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/5ea4f62ef62536e6bf4d78a9b440fb9035ddfb4a/summary_results.json",
+        "size": 2221336,
+        "sha256": "68c19b46cf5a87f535beae81154d61c3d981fe850ae3d09af530c769b6e0cc68",
+        "repository": "mlcommons/inference_results_v5.1",
+        "commit": "5ea4f62ef62536e6bf4d78a9b440fb9035ddfb4a"
+      },
+      {
+        "path": "external\\empirical_20261111\\mlperf\\mlperf_log_summary.txt",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/5ea4f62ef62536e6bf4d78a9b440fb9035ddfb4a/closed/Lenovo/results/SR680a_V3_B200SXMx8_TRT/llama2-70b-99/Server/performance/run_1/mlperf_log_summary.txt",
+        "size": 3138,
+        "sha256": "ce8ee1c456d622a823678bc9daa369c729312820e2f0189f2a2536d46bead3af",
+        "repository": "mlcommons/inference_results_v5.1",
+        "commit": "5ea4f62ef62536e6bf4d78a9b440fb9035ddfb4a"
+      },
+      {
+        "path": "external\\empirical_20261111\\hust\\1-1.pkl",
+        "url": "https://data.mendeley.com/public-files/datasets/nsc7hnsg4s/files/5ca0ac3e-d598-4d07-8dcb-879aa047e98b/file_downloaded",
+        "size": 53553885,
+        "sha256": "8e43eac20a707f094b3e01e44cb36b1d8229a91529dc973677b37f3605766df2",
+        "member": "our_data/1-1.pkl",
+        "dataset_doi": "10.17632/nsc7hnsg4s.2",
+        "license": "CC-BY-4.0",
+        "zip_crc32": 289524931,
+        "archive_expected_sha256": "071d24617153693b0d29059568525e620f6af6512acc9d00c98c7adcf15125db",
+        "full_archive_hash_verified": false,
+        "note": "only selected member ranges downloaded; member CRC and extracted SHA checked"
+      },
+      {
+        "path": "external\\empirical_20261111\\hust\\1-2.pkl",
+        "url": "https://data.mendeley.com/public-files/datasets/nsc7hnsg4s/files/5ca0ac3e-d598-4d07-8dcb-879aa047e98b/file_downloaded",
+        "size": 88277079,
+        "sha256": "2c7bc486d4f924dae68281e0457899c6e251a7c7bc698de2617553cb0e8f64d3",
+        "member": "our_data/1-2.pkl",
+        "dataset_doi": "10.17632/nsc7hnsg4s.2",
+        "license": "CC-BY-4.0",
+        "zip_crc32": 529974760,
+        "archive_expected_sha256": "071d24617153693b0d29059568525e620f6af6512acc9d00c98c7adcf15125db",
+        "full_archive_hash_verified": false,
+        "note": "only selected member ranges downloaded; member CRC and extracted SHA checked"
+      }
+    ]
+  },
+  "azure_week_acquisition": {
+    "path": "external\\empirical_20261111\\azure\\AzureLLMInferenceTrace_code_1week.csv",
+    "url": "https://github.com/Azure/AzurePublicDataset/releases/download/dataset-llm-2024/AzureLLMInferenceTrace_code_1week.csv",
+    "size": 691989454,
+    "sha256": "71de5c55cbc35f8f1ed0b6b7806b4cd1e9764b0058469725a6aac98023a1448f",
+    "release_id": 333239353,
+    "asset_id": 436400338,
+    "published_digest": "sha256:71de5c55cbc35f8f1ed0b6b7806b4cd1e9764b0058469725a6aac98023a1448f",
+    "license": "CC-BY-4.0",
+    "status": "downloaded_complete"
+  }
+}
