@@ -1,0 +1,51 @@
+﻿parameter,value,unit,source_type,source,low,high,boundary
+dt,0.25,h,配置,本研究配置 Config.dt,0.25,0.25,来自输入的15分钟采样，不当作物理不确定性
+eta,0.95,1,假设,本研究配置 Config.eta,0.9,0.99,双向对称效率工程假设；未获得本项目设备效率曲线
+soc_max,0.95,1,假设,本研究配置 Config.soc_max,0.9,0.99,可用能量上界工程假设；未获得电池厂商SOC限值
+charge_rate,0.5,1,假设,本研究配置 Config.charge_rate,0.4,0.6,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+grid_max,20.0,MW,假设,本研究配置 Config.grid_max,16.0,24.0,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+ride_h,0.25,h,假设,本研究配置 Config.ride_h,0.2,0.3,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+reserve_h,0.05,h,假设,本研究配置 Config.reserve_h,0.04000000000000001,0.06,CVaR尾均值时长近似固定为3分钟；与15分钟启动失败压力臂并列
+demand_rate,1706.6666666666667,CNY/MW/day,政策,https://www.jintan.gov.cn/html/czjt/2025/JFKEQAOD_0624/281022.html,1365.3333333333335,2048.0,2025-06两部制1–10(20)kV 51.2元/kW/月，按30天摊销
+reg_duration,0.5,h,假设,本研究配置 Config.reg_duration,0.4,0.6,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+reg_capacity_price,0.0,CNY/MW/h,假设,本研究配置 Config.reg_capacity_price,0.0,25.0,未获得2025版实施细则完整结算条款；保守设0，不沿用旧25元假设
+reg_mileage_price,6.0,CNY/MW-mileage,假设,本研究配置 Config.reg_mileage_price,4.800000000000001,7.199999999999999,6为研究情景报价，不是江苏实测或政策定价；待实测结算数据替换
+mileage_ratio,8.0,1,假设,本研究配置 Config.mileage_ratio,6.4,9.6,每小时8倍里程工程假设；trace无AGC信号
+performance,1.0,1,假设,本研究配置 Config.performance,0.8,1.2,性能系数1假设；无电站实测AGC跟踪
+activation_beta,0.05,1,假设,本研究配置 Config.activation_beta,0.04000000000000001,0.06,每小时每MW单向容量0.05MWh等效循环吞吐；无实测AGC
+thermal_ua,0.25,MW/K,假设,本研究配置 Config.thermal_ua,0.2,0.3,等效围护传热系数假设；由一阶热平衡推导，不是校准热参数
+thermal_c,1.0,MWh/K,假设,本研究配置 Config.thermal_c,0.8,1.2,等效机房热容假设；未取得楼宇热响应测量
+thermal_cop,3.5,1,假设,本研究配置 Config.thermal_cop,2.8000000000000003,4.2,空调恒定COP假设，未拟合部分负载性能
+thermal_range,4.0,K,假设,本研究配置 Config.thermal_range,3.2,4.8,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+thermal_tmax,27.0,degC,假设,本研究配置 Config.thermal_tmax,21.6,32.4,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+thermal_ambient,30.0,degC,假设,本研究配置 Config.thermal_ambient,24.0,36.0,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+ac_max,3.0,MW,假设,本研究配置 Config.ac_max,2.4000000000000004,3.5999999999999996,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+flex_scale,1.0,1,假设,本研究配置 Config.flex_scale,0.5,1.5,业务可中断比例倍数；pod没有checkpoint能力标签
+window_scale,1.0,1,假设,本研究配置 Config.window_scale,0.5,1.5,截止窗口倍数；pod存活时长不能识别允许延迟
+recovery_scale,1.0,1,假设,本研究配置 Config.recovery_scale,0.5,1.5,恢复速率倍数；未取得业务服务率测量
+capex_kwh,800.0,CNY/kWh,假设,本研究配置 Config.capex_kwh,640.0,960.0,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+discount,0.08,1,假设,本研究配置 Config.discount,0.0,0.12,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+years,15.0,1,假设,本研究配置 Config.years,10.0,20.0,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+calendar_fade,0.015,1,假设,本研究配置 Config.calendar_fade,0.012,0.018,年历衰减率假设；未做温度/日历寿命标定
+cycle_fade,3e-05,1,假设,本研究配置 Config.cycle_fade,2.4e-05,3.6e-05,线性EFC衰减率假设；不同于PyBaMM三档代理成本，未做雨流计数
+replacement_soh,0.8,1,假设,本研究配置 Config.replacement_soh,0.7,0.9,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+replacement_fraction,0.6,1,假设,本研究配置 Config.replacement_fraction,0.48,0.72,本研究明确设定的工程/经济情景，须通过上下扰动解释结论
+penalty,100000.0,CNY/MWh,假设,本研究配置 Config.penalty,80000.0,120000.0,备用/终端软约束罚率，表示不可执行代价，不是市场罚则
+seed,20261110.0,1,配置,本研究配置 Config.seed,20261110.0,20261110.0,可复现随机种子
+tariff_peak,991.9,CNY/MWh,政策,https://www.jintan.gov.cn/html/czjt/2025/JFKEQAOD_0624/281022.html,991.9,991.9,历史2025-06代理购电；非2026现货预测
+tariff_flat,649.9,CNY/MWh,政策,https://www.jintan.gov.cn/html/czjt/2025/JFKEQAOD_0624/281022.html,649.9,649.9,同一电压等级、月份
+tariff_valley,372.0,CNY/MWh,政策,https://www.jintan.gov.cn/html/czjt/2025/JFKEQAOD_0624/281022.html,372.0,372.0,同一电压等级、月份
+tariff_periods,20250601.0,YYYYMMDD,政策,https://fzggw.jiangsu.gov.cn/art/2025/4/30/art_284_11557001.html,20250601.0,20250601.0,苏发改价格发〔2025〕426号，2025-06-01执行；夏季时段
+degradation_calibration,22.462056,CNY/MWh,仿真标定,data/inputs/degradation_calibration.csv,22.462056,22.462056,PyBaMM仿真标定，不是实测；DoD<0.3最近档外推
+business_train_f,0.2,1,假设,sim/business.py:BUSINESS[train].f,0.1,0.30000000000000004,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_train_window_h,2.0,h,假设,sim/business.py:BUSINESS[train].window_h,1.0,3.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_train_ramp_frac,0.3,1,假设,sim/business.py:BUSINESS[train].ramp_frac,0.15,0.44999999999999996,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_infer_f,0.0,1,假设,sim/business.py:BUSINESS[infer].f,0.0,0.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_infer_window_h,0.0,h,假设,sim/business.py:BUSINESS[infer].window_h,0.0,0.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_infer_ramp_frac,0.0,1,假设,sim/business.py:BUSINESS[infer].ramp_frac,0.0,0.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_batch_f,0.8,1,假设,sim/business.py:BUSINESS[batch].f,0.4,1.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_batch_window_h,8.0,h,假设,sim/business.py:BUSINESS[batch].window_h,4.0,12.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_batch_ramp_frac,0.5,1,假设,sim/business.py:BUSINESS[batch].ramp_frac,0.25,0.75,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_deliv_f,0.35,1,假设,sim/business.py:BUSINESS[deliv].f,0.175,0.5249999999999999,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_deliv_window_h,4.0,h,假设,sim/business.py:BUSINESS[deliv].window_h,2.0,6.0,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
+business_deliv_ramp_frac,0.4,1,假设,sim/business.py:BUSINESS[deliv].ramp_frac,0.2,0.6000000000000001,pod轨迹无checkpoint/截止/恢复率标签；各业务参数独立±50%扫描
